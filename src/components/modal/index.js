@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, DropdownItem} from 'reactstrap';
-import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Form} from 'reactstrap';
 
 const ModalExample = (props) => {
   const {

@@ -3,13 +3,7 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, DropdownItem} from 'reactstrap';
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
-const ModalExample = (props) => {
-  const {
-    buttonLabel,
-    className, 
-    children
-  } = props;
-  console.log(children)
+const Connexion = (props) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
@@ -30,4 +24,4 @@ const ModalExample = (props) => {
   );
 }
 
-export default ModalExample;
+export default Connexion;
