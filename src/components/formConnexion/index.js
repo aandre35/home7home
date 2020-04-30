@@ -1,13 +1,7 @@
-/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, DropdownItem} from 'reactstrap';
-import { Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Form, FormGroup, Label, Input} from 'reactstrap';
 
 const Connexion = (props) => {
-  const [modal, setModal] = useState(false);
-
-  const toggle = () => setModal(!modal);
-
   return (
     <div>
       <Form>

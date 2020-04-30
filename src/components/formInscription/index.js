@@ -1,12 +1,7 @@
-/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useState } from 'react';
 import { Form, FormGroup, Label, Input, Row, Col, FormText } from 'reactstrap';
 
 const Inscription = () => {
-  const [modal, setModal] = useState(false);
-
-  const toggle = () => setModal(!modal);
-
   return (
     <div>
       <Form row>
