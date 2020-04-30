@@ -6,12 +6,13 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
+  NavbarText,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap';
+import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import Modal from '../modal'
@@ -31,13 +32,19 @@ const MyNavbar = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/logements/">Logements</NavLink>
+              <Link to="/logements">
+                <NavbarText>Logements</NavbarText>
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="/services">Services</NavLink>
+              <Link to="/services">
+                <NavbarText>Services</NavbarText>
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="/emplois">Emplois</NavLink>
+              <Link to="/emplois">
+                <NavbarText>Emplois</NavbarText>
+              </Link>
             </NavItem>
           </Nav>
           <Nav className="ml-auto" navbar>
