@@ -1,16 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Home from './pages/home'
 import Logements from './pages/logements'
+import Services from './pages/services'
+import Emplois from './pages/emplois'
 import Compte from './pages/mon-compte'
+import {Route, Link} from 'react-router-dom'
 
 function App() {
   return (
     <div className="App">
-      <Home/>
-      <Logements/>
-      <Compte/>
+      <Route exact path="/" component={Home}/>
+      <Route exact path="/logements" component={Logements}/>
+      <Route exact path="/services" component={Services}/>
+      <Route exact path="/emplois" component={Emplois}/>
+      <Route exact path="/mon-compte" component={Compte}/>
     </div>
   );
 }

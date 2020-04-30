@@ -1,13 +1,13 @@
 import React from 'react';
 import { Jumbotron, Container } from 'reactstrap';
 
-const Banner = (props) => {
+const Banner = ({titre, description}) => {
   return (
     <div>
       <Jumbotron>
         <Container>
-          <h1 className="display-3">Jumbotron</h1>
-          <p className="lead">This is a jumbotron.</p>
+          <h1 className="display-3">{titre}</h1>
+          <p className="lead">{description}</p>
         </Container>
       </Jumbotron>
     </div>

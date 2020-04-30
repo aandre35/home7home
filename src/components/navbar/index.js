@@ -14,8 +14,9 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
-import Connexion from '../connexion'
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import Modal from '../modal'
+import FormConnexion from '../formConnexion'
+import FormInscription from '../formInscription'
 
 const MyNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,14 +46,16 @@ const MyNavbar = (props) => {
                 <FontAwesomeIcon icon={faUser} />
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>
+                <DropdownItem href="/mon-compte">
                   Mon compte
                 </DropdownItem>
                 <DropdownItem divider />
-                <Connexion buttonLabel="Connexion"></Connexion>
-                <DropdownItem>
-                  Inscription
-                </DropdownItem>
+                <Modal buttonLabel="Connexion">
+                  <FormConnexion/>
+                </Modal>
+                <Modal buttonLabel="Inscription">
+                  <FormInscription/>
+                </Modal>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>

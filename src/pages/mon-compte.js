@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import {Table, Button} from 'reactstrap'
 import axios from 'axios'
 import MyNavbar from '../components/navbar'
 import Banner from '../components/banner'
-import Cadre from '../components/cadreAnnonce'
-import Connexion from '../components/connexion'
-import { Container, Row, Col } from 'reactstrap';
 
-class App extends Component {
+class Compte extends Component {
   state = {
     users: []
   }
@@ -33,15 +28,16 @@ class App extends Component {
         </tr>
       )
     });
-
+    const titre = "Mon compte";
+    const description = "Bienvenue prenom, vous pouvez ajouter de nouvelles annonces";
     return (
       <div>
         <MyNavbar></MyNavbar>
-        <Banner></Banner>
+        <Banner titre={titre} description={description}></Banner>
       </div>
     )
 
   }
 }
 
-export default App;
+export default Compte;
