@@ -53,9 +53,11 @@ const MyNavbar = (props) => {
                 <FontAwesomeIcon icon={faUser} />
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem href="/mon-compte">
-                  Mon compte
-                </DropdownItem>
+                <Link to="/mon-compte">
+                  <DropdownItem>
+                    Mon compte
+                  </DropdownItem>
+                </Link>
                 <DropdownItem divider />
                 <Modal buttonLabel="Connexion">
                   <FormConnexion/>
