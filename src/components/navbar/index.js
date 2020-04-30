@@ -5,8 +5,8 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
+  NavLink,
   NavItem,
-  NavbarText,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -33,17 +33,17 @@ const MyNavbar = (props) => {
           <Nav className="mr-auto" navbar>
             <NavItem>
               <Link to="/logements">
-                <NavbarText>Logements</NavbarText>
+                <NavLink>Logements</NavLink>
               </Link>
             </NavItem>
             <NavItem>
               <Link to="/services">
-                <NavbarText>Services</NavbarText>
+                <NavLink>Services</NavLink>
               </Link>
             </NavItem>
             <NavItem>
               <Link to="/emplois">
-                <NavbarText>Emplois</NavbarText>
+                <NavLink>Emplois</NavLink>
               </Link>
             </NavItem>
           </Nav>

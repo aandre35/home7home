@@ -18,10 +18,6 @@ class Logements extends Component {
     });
   }
   render() {
-    let Holder;
-    window.addEventListener('DOMContentLoaded', () => {
-      Holder = require('holderjs');
-    });
     let logements = this.state.users.map((logement) => {
       return (
         <Cadre 

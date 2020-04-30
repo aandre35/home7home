@@ -18,10 +18,6 @@ class Services extends Component {
     });
   }
   render() {
-    let Holder;
-    window.addEventListener('DOMContentLoaded', () => {
-      Holder = require('holderjs');
-    });
     let emplois = this.state.users.map((emploi) => {
       return (
         <Cadre 
