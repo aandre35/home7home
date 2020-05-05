@@ -58,6 +58,11 @@ const MyNavbar = (props) => {
                     Mon compte
                   </DropdownItem>
                 </Link>
+                <Link to="/admin">
+                  <DropdownItem>
+                    Admin
+                  </DropdownItem>
+                </Link>
                 <DropdownItem divider />
                 <Modal buttonLabel="Connexion">
                   <FormConnexion/>

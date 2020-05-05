@@ -5,7 +5,9 @@ import Logements from './pages/logements'
 import Services from './pages/services'
 import Emplois from './pages/emplois'
 import Compte from './pages/mon-compte'
-import {Route, Link} from 'react-router-dom'
+import Admin from './pages/admin'
+
+import {Route} from 'react-router-dom'
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
       <Route exact path="/services" component={Services}/>
       <Route exact path="/emplois" component={Emplois}/>
       <Route exact path="/mon-compte" component={Compte}/>
+      <Route exact path="/admin" component={Admin}/>
+
     </div>
   );
 }

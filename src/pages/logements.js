@@ -11,7 +11,7 @@ class Logements extends Component {
     users: []
   }
   componentWillMount() {
-    axios.get('http://localhost:8080/projet_applis_web/rest/listutilisateurs').then((response) => {
+    axios.get('http://localhost:8080/utilisateurs').then((response) => {
       this.setState({
         users : response.data
       })
