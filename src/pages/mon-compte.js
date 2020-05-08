@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import MyNavbar from '../components/navbar'
 import Banner from '../components/banner'
+import {Helmet} from "react-helmet";
 
 class Compte extends Component {
   state = {
@@ -32,6 +33,11 @@ class Compte extends Component {
     const description = "Bienvenue prenom, vous pouvez ajouter de nouvelles annonces";
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Home7Home | {titre}</title>
+          <meta name="description" content={description} />
+        </Helmet>
         <MyNavbar></MyNavbar>
         <Banner titre={titre} description={description}></Banner>
       </div>

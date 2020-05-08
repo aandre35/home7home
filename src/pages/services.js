@@ -5,6 +5,7 @@ import Banner from '../components/banner'
 import Cadre from '../components/cadreAnnonce'
 import { Container, Row, Col, Card, CardBody, CardHeader,
   Form, FormGroup, Label, Input} from 'reactstrap';
+import {Helmet} from "react-helmet";
 
 class Services extends Component {
   state = {
@@ -47,6 +48,11 @@ class Services extends Component {
     const description = "Liste des services";
     return (
       <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Home7Home | {titre}</title>
+          <meta name="description" content={description} />
+        </Helmet>
         <MyNavbar></MyNavbar>
         <Banner titre={titre} description={description}></Banner>
         <Container fluid>

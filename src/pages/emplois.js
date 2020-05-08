@@ -5,6 +5,7 @@ import Banner from '../components/banner'
 import Cadre from '../components/cadreAnnonce'
 import { Container, Row, Col, Card, CardBody, CardHeader,
   Form, FormGroup, Label, Input} from 'reactstrap';
+import {Helmet} from "react-helmet";
 
 class Services extends Component {
   state = {
@@ -47,29 +48,33 @@ class Services extends Component {
     const description = "Liste des offres d'emplois et de stage";
     return (
       <div>
-      <MyNavbar></MyNavbar>
-      <Banner titre={titre} description={description}></Banner>
-      <Container fluid>
-        <Row>
-          <Col md="4" className="pb-5">
-            <Card>
-              <CardHeader>
-                <h6>Type de contrat</h6>
-              </CardHeader>
-              <CardBody>
-                <Form>
-                  {typesEmplois}
-                </Form>
-              </CardBody>              
-            </Card>
-          </Col>
-          <Col md="8">
-            {emplois}
-          </Col>
-        </Row>
-      </Container>
-    </div>
-
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>Home7Home | {titre}</title>
+          <meta name="description" content={description} />
+        </Helmet>
+        <MyNavbar></MyNavbar>
+        <Banner titre={titre} description={description}></Banner>
+        <Container fluid>
+          <Row>
+            <Col md="4" className="pb-5">
+              <Card>
+                <CardHeader>
+                  <h6>Type de contrat</h6>
+                </CardHeader>
+                <CardBody>
+                  <Form>
+                    {typesEmplois}
+                  </Form>
+                </CardBody>              
+              </Card>
+            </Col>
+            <Col md="8">
+              {emplois}
+            </Col>
+          </Row>
+        </Container>
+      </div>
   )}
 }
 

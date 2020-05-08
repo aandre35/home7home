@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import Modal from '../modal'
 import FormConnexion from '../formConnexion'
+import FormInscription from '../modalFormInscription';
 
 const MyNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,11 +61,15 @@ const MyNavbar = (props) => {
                 <Modal buttonLabel="Connexion">
                   <FormConnexion/>
                 </Modal>
+                <FormInscription buttonLabel="S'inscire"/>
+                {/*                 
                 <Link to="/inscription">
                   <DropdownItem>
                     Inscription
                   </DropdownItem>
-                </Link>
+                </Link> 
+                */}
+
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
