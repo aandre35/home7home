@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Media } from 'reactstrap';
+import {Link} from 'react-router-dom'
 
 class Cadre extends Component {
   componentWillMount() {
@@ -9,20 +10,24 @@ class Cadre extends Component {
     });
   }
   render() {
+    const {titre, description, photo, url} = this.props
+    //const smallDescription = description.substr(0,100) 
     return (
       <Media className="mb-5">
-        <Media left href="#" className="pr-4">
+        <Media left href={url} className="pr-4">
           <Media 
             object 
             data-src="holder.js/128x128"
             alt="Generic placeholder image" 
           />
         </Media>
-        <Media body>
-          <Media heading>
-            Media heading
-          </Media>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        <Media body >
+          <Link to={url}>
+            <Media heading>
+              {titre}
+            </Media>
+          </Link>
+          {description}
         </Media>
       </Media>
     );

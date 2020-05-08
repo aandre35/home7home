@@ -8,25 +8,41 @@ import { Container, Row, Col, Card, CardBody, CardHeader,
 
 class Services extends Component {
   state = {
-    users: []
+    emplois: [],
+    typesEmplois: []
   }
   componentWillMount() {
-    axios.get('http://localhost:8080/projet_applis_web/rest/listutilisateurs').then((response) => {
+    axios.get('http://localhost:8080/emplois').then((response) => {
       this.setState({
-        users : response.data
+        emplois : response.data
+      })
+    });
+    axios.get('http://localhost:8080/typeEmplois').then((response) => {
+      this.setState({
+        typesEmplois : response.data
       })
     });
   }
   render() {
-    let emplois = this.state.users.map((emploi) => {
+    let emplois = this.state.emplois.map((emploi) => {
       return (
-        <Cadre 
+        <Cadre key={emploi.id}
           titre={emploi.titre}
-          description={emploi.description}
+          description={emploi.descriptionPoste}
           photo={emploi.photoLogement}
+          url={`emplois/${emploi.id}`}
         />
       )
     });
+    let typesEmplois = this.state.typesEmplois.map((typesEmploi) => {
+      return (
+        <FormGroup check inline key={typesEmploi.id}>
+          <Label check>
+            <Input type="checkbox" /> {typesEmploi.type}
+          </Label>
+        </FormGroup>
+      )
+    })
     const titre = "Offres d'emplois";
     const description = "Liste des offres d'emplois et de stage";
     return (
@@ -42,30 +58,13 @@ class Services extends Component {
               </CardHeader>
               <CardBody>
                 <Form>
-                  <FormGroup check inline>
-                    <Label check>
-                      <Input type="checkbox" /> CDD
-                    </Label>
-                  </FormGroup>
-                  <FormGroup check inline>
-                    <Label check>
-                      <Input type="checkbox" /> CDI
-                    </Label>
-                  </FormGroup>
-                  <FormGroup check inline>
-                    <Label check>
-                      <Input type="checkbox" /> Stage
-                    </Label>
-                  </FormGroup>
+                  {typesEmplois}
                 </Form>
               </CardBody>              
             </Card>
           </Col>
           <Col md="8">
-            <Cadre></Cadre>
-            <Cadre></Cadre>
-            <Cadre></Cadre>
-            <Cadre></Cadre>
+            {emplois}
           </Col>
         </Row>
       </Container>

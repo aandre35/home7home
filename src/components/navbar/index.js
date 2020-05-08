@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import Modal from '../modal'
 import FormConnexion from '../formConnexion'
-import FormInscription from '../formInscription'
 
 const MyNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,19 +31,13 @@ const MyNavbar = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <Link to="/logements">
-                <NavLink>Logements</NavLink>
-              </Link>
+              <NavLink href="/logements">Logements</NavLink>
             </NavItem>
             <NavItem>
-              <Link to="/services">
-                <NavLink>Services</NavLink>
-              </Link>
+              <NavLink href="/services">Services</NavLink>
             </NavItem>
             <NavItem>
-              <Link to="/emplois">
-                <NavLink>Emplois</NavLink>
-              </Link>
+              <NavLink href="/emplois">Emplois</NavLink>
             </NavItem>
           </Nav>
           <Nav className="ml-auto" navbar>
@@ -67,9 +60,11 @@ const MyNavbar = (props) => {
                 <Modal buttonLabel="Connexion">
                   <FormConnexion/>
                 </Modal>
-                <Modal buttonLabel="Inscription">
-                  <FormInscription/>
-                </Modal>
+                <Link to="/inscription">
+                  <DropdownItem>
+                    Inscription
+                  </DropdownItem>
+                </Link>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>

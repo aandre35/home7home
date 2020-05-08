@@ -97,10 +97,10 @@ class ListUtilisateurs extends Component {
             <td>{utilisateur.nom}</td>
             <td>{utilisateur.mail}</td>
             <td>{utilisateur.password}</td>
-            <td>{utilisateur.logements}</td>
-            <td>{utilisateur.services}</td>
-            <td>{utilisateur.emplois}</td>
-            <td>{utilisateur.photoservice}</td>
+            <td>{utilisateur.logements.map((logement => `${logement.id} `))}</td>
+            <td>{utilisateur.services.map((service => `${service.id} `))}</td>
+            <td>{utilisateur.emplois.map((emploi => `${emploi.id} `))}</td>
+            <td>{utilisateur.photoUtilisateur}</td>
           </tr>             
       )
     });

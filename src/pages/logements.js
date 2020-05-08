@@ -8,25 +8,41 @@ import { Container, Row, Col, Card, CardBody, CardHeader,
 
 class Logements extends Component {
   state = {
-    users: []
+    logements: [],
+    typeLogements: []
   }
   componentWillMount() {
-    axios.get('http://localhost:8080/utilisateurs').then((response) => {
+    axios.get('http://localhost:8080/logements').then((response) => {
       this.setState({
-        users : response.data
+        logements : response.data
+      })
+    });
+    axios.get('http://localhost:8080/typeLogements').then((response) => {
+      this.setState({
+        typeLogements : response.data
       })
     });
   }
   render() {
-    let logements = this.state.users.map((logement) => {
+    let logements = this.state.logements.map((logement) => {
       return (
-        <Cadre 
+        <Cadre key={logement.id}
           titre={logement.titre}
           description={logement.description}
           photo={logement.photoLogement}
+          url={`logements/${logement.id}`}
         />
       )
     });
+    let typeLogements = this.state.typeLogements.map((typeLogement) => {
+      return(
+        <FormGroup check inline key={typeLogement.id}>
+          <Label check>
+            <Input type="checkbox" /> {typeLogement.type}
+          </Label>
+        </FormGroup>
+      )
+    })
     const titre = "Logements";
     const description = "Liste des logements";
     return (
@@ -42,26 +58,7 @@ class Logements extends Component {
                 </CardHeader>
                 <CardBody>
                   <Form>
-                    <FormGroup check inline>
-                      <Label check>
-                        <Input type="checkbox" /> T1
-                      </Label>
-                    </FormGroup>
-                    <FormGroup check inline>
-                      <Label check>
-                        <Input type="checkbox" /> T2
-                      </Label>
-                    </FormGroup>                    
-                    <FormGroup check inline>
-                      <Label check>
-                        <Input type="checkbox" /> Studio
-                      </Label>
-                    </FormGroup>
-                    <FormGroup check inline>
-                      <Label check>
-                        <Input type="checkbox" /> Colocation
-                      </Label>
-                    </FormGroup>
+                    {typeLogements}
                   </Form>
                 </CardBody>              
               </Card>
@@ -70,7 +67,7 @@ class Logements extends Component {
                   <h6>Loyer</h6>
                 </CardHeader>
                 <CardBody>
-                  <Form row> 
+                  <Form> 
                   <Row>
                     <Col l="6">
                       <FormGroup>
@@ -78,7 +75,7 @@ class Logements extends Component {
                         <Input type="number" name="email" id="exampleEmail" placeholder="0€" />
                       </FormGroup>
                     </Col>
-                    <Col l="6" text-right>
+                    <Col l="6" className="text-right">
                       <FormGroup>
                         <Label for="exampleEmail">Max</Label>
                         <Input type="number" name="email" id="exampleEmail" placeholder="1000€" />
@@ -90,10 +87,7 @@ class Logements extends Component {
               </Card>
             </Col>
             <Col md="8">
-              <Cadre></Cadre>
-              <Cadre></Cadre>
-              <Cadre></Cadre>
-              <Cadre></Cadre>
+              {logements}
             </Col>
           </Row>
         </Container>

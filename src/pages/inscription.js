@@ -1,49 +1,62 @@
-import React, { useState, Component } from 'react';
-import { Form, FormGroup, Label, Input, Row, Col, FormText, Button } from 'reactstrap';
+import React, { Component } from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, DropdownItem,
+  Form, FormGroup, Label, Input, Row, Col, FormText, Container } from 'reactstrap';
 import axios from 'axios'
+import MyNavbar from '../components/navbar'
 
-class Inscription extends Component {
+class FormInscription extends Component {
 
-  state = {
-    nom: '',
-    prenom: '',
-    mail: '',
-    password: '',
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      nom: '',
+      prenom: '',
+      mail: '',
+      password: ''
+    }
   }
+
   handleChange = (e) => {
     this.setState(
       {
-        [e.target.name]: e.target.value
+        [e.target.name]: e.target.value,
       }
     )
+    console.log(this.state)
   }
 
   handleSubmit = event => {
     event.preventDefault();
 
-    {/*
+    
     const utilisateur = {
       nom: this.state.nom,
       prenom: this.state.prenom,
       mail: this.state.mail,
       password: this.state.password
     };
-  */}
-    const utilisateur = this.state
-    console.log(utilisateur)
+    console.log("Utilisateur envoyé: ")
+    console.log(this.state)
     
-    axios.post(`http://localhost:8080/utilisateurs`, { utilisateur })
+    axios.post(`http://localhost:8080/utilisateurs`, this.state)
       .then(res => {
         console.log(res);
         console.log(res.data);
       })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   render() {
-    console.log(this.state);
     const {nom, prenom, mail, password} = this.state;
+    
     return (
       <div>
+        <MyNavbar></MyNavbar>
+        <section>
+      <Container>
         <Form onSubmit={this.handleSubmit}>
           <Row>
             <Col >
@@ -107,12 +120,14 @@ class Inscription extends Component {
               <Input type="checkbox" />{' '}
               J'accepte les condtions d'utilisation
             </Label>
-            <Button olor="primary" type="submit">S'inscrire</Button>
+            <Button color="primary" type="submit">S'inscrire</Button>
           </FormGroup>
         </Form>
+      </Container>
+      </section>
       </div>
     );
   }
 }
 
-export default Inscription;
+export default FormInscription;

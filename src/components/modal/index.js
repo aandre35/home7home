@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, DropdownItem} from 'reactstrap';
-import { Form} from 'reactstrap';
 
 const ModalExample = (props) => {
   const {
@@ -18,9 +17,7 @@ const ModalExample = (props) => {
       <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalHeader toggle={toggle}>{buttonLabel}</ModalHeader>
         <ModalBody>
-          <Form>
             {children}
-          </Form>
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={toggle}>{buttonLabel}</Button>{' '}

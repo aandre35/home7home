@@ -8,25 +8,41 @@ import { Container, Row, Col, Card, CardBody, CardHeader,
 
 class Services extends Component {
   state = {
-    users: []
+    services: [],
+    typesServices: []
   }
   componentWillMount() {
-    axios.get('http://localhost:8080/projet_applis_web/rest/listutilisateurs').then((response) => {
+    axios.get('http://localhost:8080/services').then((response) => {
       this.setState({
-        users : response.data
+        services : response.data
+      })
+    });
+    axios.get('http://localhost:8080/typeServices').then((response) => {
+      this.setState({
+        typesServices : response.data
       })
     });
   }
   render() {
-    let services = this.state.users.map((service) => {
+    let services = this.state.services.map((service) => {
       return (
-        <Cadre 
+        <Cadre key={service.id}
           titre={service.titre}
           description={service.description}
           photo={service.photoLogement}
+          url={`services/${service.id}`}
         />
       )
     });
+    let typesServices = this.state.typesServices.map((type) => {
+      return (
+        <FormGroup check inline key={type.id}>
+          <Label check>
+            <Input type="checkbox" /> {type.type}
+          </Label>
+        </FormGroup>
+      )
+    })
     const titre = "Services";
     const description = "Liste des services";
     return (
@@ -42,16 +58,7 @@ class Services extends Component {
                 </CardHeader>
                 <CardBody>
                   <Form>
-                    <FormGroup check inline>
-                      <Label check>
-                        <Input type="checkbox" /> Cours particuliers
-                      </Label>
-                    </FormGroup>
-                    <FormGroup check inline>
-                      <Label check>
-                        <Input type="checkbox" /> type service
-                      </Label>
-                    </FormGroup>
+                    {typesServices}
                   </Form>
                 </CardBody>              
               </Card>
@@ -80,10 +87,7 @@ class Services extends Component {
               </Card>
             </Col>
             <Col md="8">
-              <Cadre></Cadre>
-              <Cadre></Cadre>
-              <Cadre></Cadre>
-              <Cadre></Cadre>
+              {services}
             </Col>
           </Row>
         </Container>
