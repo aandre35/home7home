@@ -103,9 +103,7 @@ class ListUtilisateurs extends Component {
             <td>{utilisateur.nom}</td>
             <td>{utilisateur.mail}</td>
             <td>{utilisateur.password}</td>
-            <td>{utilisateur.logements.map((logement => `${logement.id} `))}</td>
-            <td>{utilisateur.services.map((service => `${service.id} `))}</td>
-            <td>{utilisateur.emplois.map((emploi => `${emploi.id} `))}</td>
+            <td>{utilisateur.annonces.map((annonce => `${annonce.titre} `))}</td>
             <td>{utilisateur.photoUtilisateur}</td>
           </tr>             
       )
@@ -120,10 +118,8 @@ class ListUtilisateurs extends Component {
               <th>Nom</th>
               <th>Mail</th>
               <th>Password</th>
-              <th>logements</th>
-              <th>services</th>
-              <th>emplois</th>
-              <th>photo</th>
+              <th>Annonces</th>
+              <th>Photo</th>
             </tr>
           </thead>
           <tbody>

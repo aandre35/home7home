@@ -6,7 +6,7 @@ import MyNavbar from '../components/navbar'
 import {Container, Row, Col, Card, CardBody, CardHeader} from 'reactstrap';
 import { UncontrolledCarousel } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faBuilding, faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faBuilding, faMapMarkerAlt, faPhone} from '@fortawesome/free-solid-svg-icons'
 import Geocode from "react-geocode";
 import userImage from './userImage.png'
 
@@ -39,6 +39,9 @@ class AnnonceLogement extends Component {
   state={
     titre: '',
     description: '',
+    loyer:'',
+    charges:'',
+    superficie:'',
     type: '',
     rue:'',
     ville:'',
@@ -46,6 +49,7 @@ class AnnonceLogement extends Component {
     prenom: '',
     nom: '',
     mail: '',
+    telephone: '',
     photo:'',
   }
   componentWillMount() {
@@ -54,6 +58,9 @@ class AnnonceLogement extends Component {
       this.setState ({
         titre : response.data.titre,
         description: response.data.description,
+        superficie: response.data.superficie,
+        loyer: response.data.loyer,
+        charges: response.data.charges,
         photo: response.data.photo,
         type: response.data.typeLogement,
         rue: response.data.rue,
@@ -61,11 +68,12 @@ class AnnonceLogement extends Component {
       })
       console.log(this.state)
     });
-    axios.get(`http://localhost:8080/proprietaireLogement/${id}`).then((response) => {
+    axios.get(`http://localhost:8080/annonces/${id}/utilisateur`).then((response) => {
       this.setState ({
         prenom : response.data.prenom,
         nom : response.data.nom,
-        mail: response.data.mail
+        mail: response.data.mail,
+        telephone: response.data.telephone
       })
       console.log(this.state)
     });
@@ -97,28 +105,43 @@ class AnnonceLogement extends Component {
         </Helmet>
         <MyNavbar/>
           <Container>
-            <div className="pt-5 pb-4">
-              <h1>{this.state.titre}</h1>
-            </div>
-          <Row className="pb-5">              
+
+          <Row className="pb-5 pt-5">              
             <Col md="8">
 
-              <MonCarousel />
+              <div className="divWithBorder pb-5">
+                <Card className="shadow">
+                  <MonCarousel />
+                  <div className="p-4">
+                    <h1>{this.state.titre}</h1>
+                    <h5><span className="text-muted">{this.state.loyer}{' €'}</span>{' / mois'}</h5>
+                  </div>               
+                </Card>               
+              </div>
+
+
               <div className="divWithBorder pt-4 pb-4">
                 <h4>Critères</h4>
                 <Row>
+                  {/* Type de logement */}
                   <Col>
-                    <FontAwesomeIcon icon={faBuilding}/>
+                    <FontAwesomeIcon icon={faBuilding}/>{this.state.type}
                   </Col>
+                  {/* Superficie */}
                   <Col>
-                    <img src="https://img.icons8.com/metro/16/000000/surface.png"/>
+                    <img src="https://img.icons8.com/metro/16/000000/surface.png"/>{' '}{this.state.superficie}{' m2'}
                   </Col>
+                </Row>  
+                <Row>
+                  {/* Adresse */}
                   <Col>
                     <FontAwesomeIcon icon={faMapMarkerAlt} />
                     {' '}{this.state.rue}{', '}{this.state.ville}
-                  </Col>
+                  </Col>     
 
-                </Row>  
+                  <Col>
+                  </Col>             
+                </Row>
               </div>
               <div className="divWithBorder pt-4 pb-4 mb-4">
                 <h4>Description</h4>
@@ -139,7 +162,12 @@ class AnnonceLogement extends Component {
                     </h6>
                 </CardHeader> 
                 <CardBody>
-                  <FontAwesomeIcon icon={faEnvelope}/> {this.state.mail}
+                  <p>
+                    <FontAwesomeIcon icon={faEnvelope}/> {this.state.mail}
+                  </p>
+                  <p>
+                    <FontAwesomeIcon icon={faPhone}/> {this.state.telephone}
+                  </p>
                 </CardBody>              
               </Card>
             </Col>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MyNavbar from '../components/navbar'
 import Banner from '../components/banner'
+import SearchBar from '../components/searchBar'
 import {Helmet} from "react-helmet";
 
 class Home extends Component {
@@ -14,8 +15,11 @@ class Home extends Component {
           <title>Home7Home | {titre}</title>
           <meta name="description" content={description} />
         </Helmet>
-        <MyNavbar></MyNavbar>
+        <MyNavbar/>
+
+        
         <Banner titre={titre} description={description}></Banner>
+        <SearchBar/>
         
       </div>
     )
