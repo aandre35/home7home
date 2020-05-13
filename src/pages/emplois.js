@@ -6,6 +6,7 @@ import Cadre from '../components/cadreAnnonce'
 import { Container, Row, Col, Card, CardBody, CardHeader,
   Form, FormGroup, Label, Input} from 'reactstrap';
 import {Helmet} from "react-helmet";
+const API = require('../API.js')
 
 class Services extends Component {
   state = {
@@ -13,12 +14,16 @@ class Services extends Component {
     typesEmplois: []
   }
   componentWillMount() {
-    axios.get('http://localhost:8080/emplois').then((response) => {
+    const urlEmplois = `${API.urlEmplois}${API.urlGet}`
+    console.log(urlEmplois)
+    axios.get(urlEmplois).then((response) => {
       this.setState({
         emplois : response.data
       })
     });
-    axios.get('http://localhost:8080/typeEmplois').then((response) => {
+    const urlTypesEmplois = `${API.urlTypesEmplois}${API.urlGet}`
+    console.log(urlTypesEmplois)
+    axios.get(urlTypesEmplois).then((response) => {
       this.setState({
         typesEmplois : response.data
       })

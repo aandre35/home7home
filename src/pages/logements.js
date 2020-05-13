@@ -6,6 +6,7 @@ import Cadre from '../components/cadreAnnonce'
 import { Container, Row, Col, Card, CardBody, CardHeader,
   Form, FormGroup, Label, Input} from 'reactstrap';
   import {Helmet} from "react-helmet";
+const API = require('../API.js')
 
 class Logements extends Component {
   state = {
@@ -13,12 +14,16 @@ class Logements extends Component {
     typeLogements: []
   }
   componentWillMount() {
-    axios.get('http://localhost:8080/logements').then((response) => {
+    const urlLogements = `${API.urlLogements}${API.urlGet}`
+    console.log(urlLogements)
+    axios.get(urlLogements).then((response) => {
       this.setState({
         logements : response.data
       })
     });
-    axios.get('http://localhost:8080/typeLogements').then((response) => {
+    const urlTypesLogements = `${API.urlTypesLogements}${API.urlGet}`
+    console.log(urlTypesLogements)
+    axios.get(urlTypesLogements).then((response) => {
       this.setState({
         typeLogements : response.data
       })

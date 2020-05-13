@@ -15,8 +15,7 @@ import {
 import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
-import Modal from '../modal'
-import FormConnexion from '../formConnexion'
+import FormConnexion from '../modalFormConnexion'
 import FormInscription from '../modalFormInscription';
 
 const MyNavbar = (props) => {
@@ -58,10 +57,8 @@ const MyNavbar = (props) => {
                   </DropdownItem>
                 </Link>
                 <DropdownItem divider />
-                <Modal buttonLabel="Connexion">
-                  <FormConnexion/>
-                </Modal>
-                <FormInscription buttonLabel="S'inscire"/>
+                <FormConnexion buttonLabel= "Se connecter"/>
+                <FormInscription buttonLabel="S'inscrire"/>
                 {/*                 
                 <Link to="/inscription">
                   <DropdownItem>
@@ -69,7 +66,6 @@ const MyNavbar = (props) => {
                   </DropdownItem>
                 </Link> 
                 */}
-
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>

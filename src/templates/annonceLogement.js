@@ -7,8 +7,8 @@ import {Container, Row, Col, Card, CardBody, CardHeader} from 'reactstrap';
 import { UncontrolledCarousel } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faBuilding, faMapMarkerAlt, faPhone} from '@fortawesome/free-solid-svg-icons'
-import Geocode from "react-geocode";
 import userImage from './userImage.png'
+const API = require('../API.js')
 
 const items = [
   {
@@ -54,7 +54,9 @@ class AnnonceLogement extends Component {
   }
   componentWillMount() {
     const id = this.props.match.params.id
-    axios.get(`http://localhost:8080/logements/${id}`).then((response) => {
+    const url = `${API.urlLogements}/${id}`
+    console.log(url)
+    axios.get(url).then((response) => {
       this.setState ({
         titre : response.data.titre,
         description: response.data.description,
@@ -68,7 +70,9 @@ class AnnonceLogement extends Component {
       })
       console.log(this.state)
     });
-    axios.get(`http://localhost:8080/annonces/${id}/utilisateur`).then((response) => {
+    const urlUtilisateur = `${API.urlAnnonces}/${id}/${API.urlUtilisateur}`
+    console.log(urlUtilisateur)
+    axios.get(urlUtilisateur).then((response) => {
       this.setState ({
         prenom : response.data.prenom,
         nom : response.data.nom,
@@ -80,19 +84,6 @@ class AnnonceLogement extends Component {
   }
   
   render() {
-    Geocode.setApiKey("AIzaSyAMygzpuadRfZUZ7UfHPVkxnv0Ee1ATVAA");
-    Geocode.setLanguage("fr");
-    Geocode.setRegion("fr");
-    Geocode.enableDebug();
-    Geocode.fromAddress("Eiffel Tower").then(
-      response => {
-        const { lat, lng } = response.results[0].geometry.location;
-        console.log(lat, lng);
-      },
-      error => {
-        console.error(error);
-      }
-    );
 
     const titre = this.state.titre
     const description = this.state.description.sub(0,100)

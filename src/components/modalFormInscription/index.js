@@ -3,6 +3,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, DropdownItem,
   Form, FormGroup, Label, Input, Row, Col, FormText, Container } from 'reactstrap';
 import axios from 'axios'
 
+const API = require('../../API.js')
+
 class FormInscription extends Component {
 
   constructor(props) {
@@ -36,9 +38,10 @@ class FormInscription extends Component {
       password: this.state.password
     };
     console.log("Utilisateur envoyé: ")
-    console.log(this.state)
-    
-    axios.post(`http://localhost:8080/utilisateurs`, this.state)
+    console.log(utilisateur)
+    const url = `${API.urlUtilisateurs}${API.urlPost}`
+    console.log(url)
+    axios.post(url, utilisateur)
       .then(res => {
         console.log(res);
         console.log(res.data);

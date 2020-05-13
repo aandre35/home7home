@@ -6,6 +6,7 @@ import Cadre from '../components/cadreAnnonce'
 import { Container, Row, Col, Card, CardBody, CardHeader,
   Form, FormGroup, Label, Input} from 'reactstrap';
 import {Helmet} from "react-helmet";
+const API = require('../API.js')
 
 class Services extends Component {
   state = {
@@ -13,12 +14,15 @@ class Services extends Component {
     typesServices: []
   }
   componentWillMount() {
-    axios.get('http://localhost:8080/services').then((response) => {
+    const urlServices = `${API.urlServices}${API.urlGet}`
+    console.log(urlServices)
+    axios.get(urlServices).then((response) => {
       this.setState({
         services : response.data
       })
     });
-    axios.get('http://localhost:8080/typeServices').then((response) => {
+    const urlTypesServices = `${API.urlTypesServices}${API.urlGet}`
+    axios.get(urlTypesServices).then((response) => {
       this.setState({
         typesServices : response.data
       })

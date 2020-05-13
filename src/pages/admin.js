@@ -4,13 +4,15 @@ import MyNavbar from '../components/navbar'
 import Banner from '../components/banner'
 import {Container, Table, ButtonGroup, Button} from 'reactstrap';
 import {Helmet} from "react-helmet";
+const API = require('../API.js')
 
 class Admin extends Component {
 
   state = {
     listUtilisateursVisible : false,
+    listAnnoncesVisible : false,
     listEmploisVisible : false,
-    listServicesVisivle : false,
+    listServicesVisible : false,
     listLogementsVisible : false,
   }
 
@@ -31,9 +33,10 @@ class Admin extends Component {
             <Button 
               onClick={() => 
                 this.setState({
+                  listAnnoncesVisible: false,
                   listUtilisateursVisible : true,
                   listEmploisVisible : false,
-                  listServicesVisivle : false,
+                  listServicesVisible : false,
                   listLogementsVisible : false,
                 })}
             >
@@ -42,9 +45,22 @@ class Admin extends Component {
             <Button 
               onClick={() => 
                 this.setState({
+                  listAnnoncesVisible: true,
                   listUtilisateursVisible : false,
                   listEmploisVisible : false,
-                  listServicesVisivle : false,
+                  listServicesVisible : false,
+                  listLogementsVisible : false,
+                })}
+            >
+              Annonces
+            </Button>
+            <Button 
+              onClick={() => 
+                this.setState({
+                  listAnnoncesVisible: false,
+                  listUtilisateursVisible : false,
+                  listEmploisVisible : false,
+                  listServicesVisible : false,
                   listLogementsVisible : true,
                 })}
             >
@@ -53,9 +69,10 @@ class Admin extends Component {
             <Button 
               onClick={() => 
                 this.setState({
+                  listAnnoncesVisible: false,
                   listUtilisateursVisible : false,
                   listEmploisVisible : false,
-                  listServicesVisivle : true,
+                  listServicesVisible : true,
                   listLogementsVisible : false,
                 })}
             >
@@ -64,9 +81,10 @@ class Admin extends Component {
             <Button 
               onClick={() => 
                 this.setState({
+                  listAnnoncesVisible: false,
                   listUtilisateursVisible : false,
                   listEmploisVisible : true,
-                  listServicesVisivle : false,
+                  listServicesVisible : false,
                   listLogementsVisible : false,
                 })}
             >
@@ -76,7 +94,8 @@ class Admin extends Component {
           {this.state.listUtilisateursVisible ? <ListUtilisateurs/> : <div></div>}
           {this.state.listEmploisVisible ? <ListEmplois/> : <div></div>}
           {this.state.listLogementsVisible ? <ListLogements/> : <div></div>}
-          {this.state.listServicesVisivle ? <ListServices/> : <div></div>}
+          {this.state.listServicesVisible ? <ListServices/> : <div></div>}
+          {this.state.listAnnoncesVisible ? <ListAnnonces/> : <div></div>}
         </Container>
         
       </div>
@@ -88,7 +107,10 @@ class ListUtilisateurs extends Component {
     utilisateurs: [],
   }
   componentWillMount() {
-    axios.get('http://localhost:8080/utilisateurs').then((response) => {
+    const url = `${API.urlUtilisateurs}${API.urlGet}`
+    console.log(url)
+    axios.get(url).then((response) => {
+      console.log(response)
       this.setState({
         utilisateurs : response.data
       })
@@ -131,12 +153,61 @@ class ListUtilisateurs extends Component {
   }
 }
 
+class ListAnnonces extends Component {
+  state = {
+    annonces: [],
+  }
+  componentWillMount() {
+    const url = `${API.urlAnnonces}${API.urlGet}`
+    console.log(url)
+    axios.get(url).then((response) => {
+      this.setState({
+        annonces : response.data
+      })
+    });
+  }
+  render() {
+    let annonces = this.state.annonces.map((annonce) => {
+      return (
+        <tr key={annonce.id}>
+            <th scope="row">{annonce.id}</th>
+            <td>{annonce.titre}</td>
+            <td>{annonce.description}</td>
+            <td>{annonce.utilisateur}</td>
+            <td>{annonce.date}</td>
+          </tr>             
+      )
+    });
+    return (    
+      <div>
+        <Table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Titre</th>
+              <th>Description</th>
+              <th>Utilisateur</th>
+              <th>Type d'Annonce</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {annonces}
+          </tbody>
+        </Table>
+      </div>    
+    );
+  }
+}
+
 class ListServices extends Component {
   state = {
     services: [],
   }
   componentWillMount() {
-    axios.get('http://localhost:8080/services').then((response) => {
+    const url = `${API.urlServices}${API.urlGet}`
+    console.log(url)
+    axios.get(url).then((response) => {
       this.setState({
         services : response.data
       })
@@ -150,7 +221,6 @@ class ListServices extends Component {
             <td>{service.titre}</td>
             <td>{service.description}</td>
             <td>{service.typeService}</td>
-            <td>{service.utilisateur}</td>
             <td>{service.photosService}</td>
           </tr>             
       )
@@ -164,7 +234,6 @@ class ListServices extends Component {
               <th>Titre</th>
               <th>Description</th>
               <th>Type de Service</th>
-              <th>Utilisateur</th>
               <th>Photos</th>
             </tr>
           </thead>
@@ -182,7 +251,9 @@ class ListEmplois extends Component {
     emplois: [],
   }
   componentWillMount() {
-    axios.get('http://localhost:8080/emplois').then((response) => {
+    const url = `${API.urlEmplois}${API.urlGet}`
+    console.log(url)
+    axios.get(url).then((response) => {      
       this.setState({
         emplois : response.data
       })
@@ -196,7 +267,7 @@ class ListEmplois extends Component {
             <td>{emploi.lieu}</td>
             <td>{emploi.duree}</td>
             <td>{emploi.titre}</td>
-            <td>{emploi.descriptionPoste}</td>
+            <td>{emploi.description}</td>
             <td>{emploi.entreprise}</td>
             <td>{emploi.descriptionProfilRecherche}</td>
             <td>{emploi.typeContrat}</td>
@@ -234,7 +305,9 @@ class ListLogements extends Component {
     logements: [],
   }
   componentWillMount() {
-    axios.get('http://localhost:8080/logements').then((response) => {
+    const url = `${API.urlLogements}${API.urlGet}`
+    console.log(url)
+    axios.get(url).then((response) => {
       this.setState({
         logements : response.data
       })
