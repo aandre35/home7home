@@ -8,13 +8,12 @@ const urlAnnonces= `${url}/annonces`;
 const urlTypesEmplois= `${url}/types-emplois`;
 const urlTypesLogements = `${url}/types-logements`;
 const urlTypesServices = `${url}/types-services`;
-
+const urlTypesAnnonces = `${url}/types-annonces`;
 const urlAnnoncesSearch= `${urlAnnonces}/search`;
 
 const urlPost = `/post`;
 const urlGet = `/get`;
 const urlUtilisateur = `/utilisateur`
-
 module.exports = {
   url : url,
 
@@ -27,7 +26,8 @@ module.exports = {
   urlTypesEmplois : urlTypesEmplois,
   urlTypesLogements : urlTypesLogements,
   urlTypesServices : urlTypesServices,
-
+  urlTypesAnnonces : urlTypesAnnonces,
+  
   urlAnnoncesSearch: urlAnnoncesSearch,
 
   urlPost: urlPost,

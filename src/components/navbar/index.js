@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import FormConnexion from '../modalFormConnexion'
 import FormInscription from '../modalFormInscription';
+import SearchBar from '../searchBarNav'
 
 const MyNavbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,6 +31,7 @@ const MyNavbar = (props) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
+            {/* 
             <NavItem>
               <NavLink href="/logements">Logements</NavLink>
             </NavItem>
@@ -39,9 +41,40 @@ const MyNavbar = (props) => {
             <NavItem>
               <NavLink href="/emplois">Emplois</NavLink>
             </NavItem>
+            */}
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Annonces
+              </DropdownToggle>
+              <DropdownMenu>
+                <Link to="/annonces">
+                  <DropdownItem>
+                    Toutes catégories
+                  </DropdownItem>
+                </Link>
+                <DropdownItem divider />
+                <Link to="/logements">
+                  <DropdownItem>
+                    Logements
+                  </DropdownItem>
+                </Link>
+                <Link to="/services">
+                  <DropdownItem>
+                    Services
+                  </DropdownItem>
+                </Link>
+                <Link to="/emplois">
+                  <DropdownItem>
+                    Emplois
+                  </DropdownItem>
+                </Link>
+              </DropdownMenu>
+                
+            </UncontrolledDropdown>
           </Nav>
           <Nav className="ml-auto" navbar>
-          <UncontrolledDropdown nav inNavbar>
+            <SearchBar/>
+            <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 <FontAwesomeIcon icon={faUser} />
               </DropdownToggle>

@@ -7,7 +7,9 @@ import Services from './pages/services'
 import Emplois from './pages/emplois'
 import Compte from './pages/mon-compte'
 import Admin from './pages/admin'
+import Annonces from './pages/annonces'
 import AnnonceLogement from './templates/annonceLogement'
+import SearchResults from './templates/searchResults'
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route exact path="/emplois" component={Emplois}/>
         <Route exact path="/mon-compte" component={Compte}/>
         <Route exact path="/admin" component={Admin}/>
+        <Route exact path="/annonces" component={Annonces}/>
+        <Route path="/results/:req" component={SearchResults}/>
         <Route path="/logements/:id" component={AnnonceLogement}/>
       </Switch>      
     </div>

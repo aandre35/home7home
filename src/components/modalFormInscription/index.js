@@ -60,7 +60,7 @@ class FormInscription extends Component {
     const {buttonLabel, className} = this.props
     const {nom, prenom, mail, password} = this.state;
     return (
-      <div>
+      <>
         <DropdownItem onClick={this.setModal}>{buttonLabel}</DropdownItem>
         <Modal isOpen={this.state.modal} toggle={this.setModal} className={className}>
         <Form onSubmit={this.handleSubmit}>
@@ -136,7 +136,7 @@ class FormInscription extends Component {
           </ModalFooter>
           </Form>
         </Modal>        
-      </div>
+      </>
     );
   }
 }
