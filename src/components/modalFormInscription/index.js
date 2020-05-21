@@ -15,6 +15,7 @@ class FormInscription extends Component {
       prenom: '',
       mail: '',
       password: '',
+      error: '',
       modal: false
     }
   }
@@ -45,9 +46,13 @@ class FormInscription extends Component {
       .then(res => {
         console.log(res);
         console.log(res.data);
+        this.setModal();
       })
       .catch(error => {
         console.log(error)
+        this.setState({
+          error: `Vous êtes déjà inscrit.`
+        });
       })
   }
 
@@ -129,9 +134,14 @@ class FormInscription extends Component {
                 J'accepte les condtions d'utilisation
               </Label>
             </FormGroup>
+            <FormGroup>
+              <FormText>
+                {this.state.error}
+              </FormText>
+            </FormGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" type="submit" onClick={this.setModal}>{buttonLabel}</Button>{' '}
+            <Button color="primary" type="submit">{buttonLabel}</Button>{' '}
             <Button color="secondary" onClick={this.setModal}>Annuler</Button>
           </ModalFooter>
           </Form>

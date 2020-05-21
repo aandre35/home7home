@@ -14,6 +14,7 @@ const urlAnnoncesSearch= `${urlAnnonces}/search`;
 const urlPost = `/post`;
 const urlGet = `/get`;
 const urlUtilisateur = `/utilisateur`
+const urlConnexion = `/connect`
 module.exports = {
   url : url,
 
@@ -32,5 +33,6 @@ module.exports = {
 
   urlPost: urlPost,
   urlGet: urlGet,
-  urlUtilisateur: urlUtilisateur
+  urlUtilisateur: urlUtilisateur,
+  urlConnexion: urlConnexion
 };

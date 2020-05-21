@@ -7,6 +7,7 @@ import { Container, CardImg, CardBody, CardTitle, CardText, CardSubtitle, Row, C
 import axios from 'axios'
 import draftImg from './318x180.svg'
 import { Link } from 'react-router-dom';
+
 const API = require('../API.js')
 
 class Home extends Component {
@@ -27,6 +28,7 @@ class Home extends Component {
     const size =4
     let annonces = this.state.annonces.slice(0,size).map((annonce) => {
       return (
+        
         <Col md className="pb-4">
           <Card key={annonce.id} className="card-exp">
             <CardImg top width="100%" src={draftImg} alt="Card image cap" />
@@ -69,3 +71,4 @@ class Home extends Component {
 }
 
 export default Home;
+
