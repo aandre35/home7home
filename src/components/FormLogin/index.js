@@ -30,7 +30,7 @@ class FormConnexion extends Component {
       return (
         <Redirect
           to={{
-            pathname: "/",
+            pathname: "/mon-compte",
             state: { from: this.state.location }
           }}
         />

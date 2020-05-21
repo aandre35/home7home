@@ -14,7 +14,7 @@ import {
 import {Link, useHistory, useLocation, Redirect} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
-import FormConnexion from '../modalFormConnexion'
+import FormConnexion from '../FormLogin'
 import FormInscription from '../modalFormInscription';
 import SearchBar from '../searchBarNav'
 import {Auth} from '../../App.js'

@@ -8,6 +8,7 @@ import {Nav, NavItem, TabContent, TabPane, NavLink, Row, Col,
   Card, CardBody, CardTitle, CardText, Button, Container, Form, FormGroup, Label, Input} from 'reactstrap'
 import classnames from 'classnames';
 import CadreAnnonce from '../components/cadreAnnonce'
+import FormNouvelleAnnonce from '../components/formNouvelleAnnonce'
 
 const API =require('../API.js')
 
@@ -147,19 +148,8 @@ class Compte extends Component {
             {/* Publier une annonce */}
             <TabPane tabId="3">
               <Row>
-                <Col sm="6">
-                  <Card body>
-                    <CardTitle>Special Title Treatment</CardTitle>
-                    <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                    <Button>Go somewhere</Button>
-                  </Card>
-                </Col>
-                <Col sm="6">
-                  <Card body>
-                    <CardTitle>Special Title Treatment</CardTitle>
-                    <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                    <Button>Go somewhere</Button>
-                  </Card>
+                <Col sm="12">
+                  <FormNouvelleAnnonce/>
                 </Col>
               </Row>
             </TabPane>

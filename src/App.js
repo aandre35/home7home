@@ -15,7 +15,7 @@ import Admin from './pages/admin'
 import Annonces from './pages/annonces'
 import AnnonceLogement from './templates/annonceLogement'
 import SearchResults from './templates/searchResults'
-import LogIn from './components/modalFormConnexion'
+import LogIn from './components/FormLogin'
 
 function App() {
   return (

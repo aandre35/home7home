@@ -174,6 +174,7 @@ class ListAnnonces extends Component {
             <td>{annonce.titre}</td>
             <td>{annonce.description}</td>
             <td>{annonce.utilisateur}</td>
+            <td>{annonce.typeAnnonce}</td>
             <td>{annonce.date}</td>
           </tr>             
       )
