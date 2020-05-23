@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
-import { Media } from 'reactstrap';
+import { Media, Row, Col, Card } from 'reactstrap';
 import {Link} from 'react-router-dom'
 
 class Cadre extends Component {
   render() {
     const {titre, description, photo, url} = this.props
-    //const smallDescription = description.substr(0,100) 
+    const smallDescription = description.substr(0,200) 
     return (
-      <Media className="mb-5">
-        <Media left href={url} className="pr-4">
-          <Media 
-            object 
-            data-src="holder.js/128x128"
-            alt="Generic placeholder image" 
-          />
-        </Media>
-        <Media body >
-          <Link to={url}>
-            <Media heading>
-              {titre}
-            </Media>
-          </Link>
-          {description}
-        </Media>
-      </Media>
+      <Card className="mb-5 shadow">
+        <Row>
+          <Col lg="4">
+            <Link to={url}>
+              <img style={{width:"100%"}}src={photo} alt={titre}/>
+            </Link>
+          </Col>
+          <Col lg="8">
+            <div className="p-2 text-justify">
+            <Link to={url}>
+              <Media heading>
+                {titre}
+              </Media>
+            </Link>
+              {smallDescription}{'...'}
+            </div>
+          </Col>
+        </Row>        
+      </Card>
+
     );
   };
 }

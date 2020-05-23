@@ -47,7 +47,6 @@ class MyNavbar extends Component{
   }
 
   render(){
-    console.log(this.state.utilisateur)
     return (
       <div>
         <Navbar color="light" light expand="md">

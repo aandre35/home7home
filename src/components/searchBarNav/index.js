@@ -1,12 +1,9 @@
-import React, { useState, Component } from 'react';
+import React, { Component } from 'react';
 import {
-  Form, FormGroup, Label, Input, Button, Row, Col
-} from 'reactstrap';
+  Form, FormGroup, Input, Button} from 'reactstrap';
 import {Link} from 'react-router-dom'
-import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch} from '@fortawesome/free-solid-svg-icons'
-const API = require('../../API.js')
 
 class SearchBar extends Component {
   state= {

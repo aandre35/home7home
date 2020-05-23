@@ -16,6 +16,8 @@ const urlPost = `/post`;
 const urlGet = `/get`;
 const urlUtilisateur = `/utilisateur`
 const urlConnexion = `/connect`
+const urlType =`/type`
+
 module.exports = {
   url : url,
 
@@ -25,6 +27,7 @@ module.exports = {
   urlEmplois: urlEmplois,
   urlAnnonces: urlAnnonces,
   urlPhotos: urlPhotos,
+
   urlTypesEmplois : urlTypesEmplois,
   urlTypesLogements : urlTypesLogements,
   urlTypesServices : urlTypesServices,
@@ -35,5 +38,6 @@ module.exports = {
   urlPost: urlPost,
   urlGet: urlGet,
   urlUtilisateur: urlUtilisateur,
-  urlConnexion: urlConnexion
+  urlConnexion: urlConnexion,
+  urlType: urlType
 };

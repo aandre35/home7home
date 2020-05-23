@@ -34,7 +34,7 @@ class Services extends Component {
       return (
         <Cadre key={emploi.id}
           titre={emploi.titre}
-          description={emploi.descriptionPoste}
+          description={emploi.description}
           photo={emploi.photoLogement}
           url={`emplois/${emploi.id}`}
         />

@@ -6,30 +6,25 @@ import MyNavbar from '../components/navbar'
 import {Container, Row, Col, Card, CardBody, CardHeader} from 'reactstrap';
 import { UncontrolledCarousel } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faBuilding, faMapMarkerAlt, faPhone} from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faBuilding, faMapMarkerAlt, faPhone, faCouch} from '@fortawesome/free-solid-svg-icons'
 import userImage from './userImage.png'
 const API = require('../API.js')
 
+const photo = `${API.urlPhotos}/24`
 const items = [
   {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa1d%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa1d%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22218.3%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
+    src: photo,
     altText: 'Slide 1',
-    caption: 'Slide 1',
-    header: 'Slide 1 Header',
     key: '1'
   },
   {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa20%20text%20%7B%20fill%3A%23444%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa20%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23666%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22247.3203125%22%20y%3D%22218.3%22%3ESecond%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
+    src: photo,
     altText: 'Slide 2',
-    caption: 'Slide 2',
-    header: 'Slide 2 Header',
     key: '2'
   },
   {
-    src: 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_15ba800aa21%20text%20%7B%20fill%3A%23333%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_15ba800aa21%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23555%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22277%22%20y%3D%22218.3%22%3EThird%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E',
+    src: photo,
     altText: 'Slide 3',
-    caption: 'Slide 3',
-    header: 'Slide 3 Header',
     key: '3'
   }
 ];
@@ -52,13 +47,14 @@ class AnnonceLogement extends Component {
     telephone: '',
     photo:'',
     image: {},
-    url:''
+    url:'',
+    meuble: new Boolean()
   }
   componentWillMount() {
     const id = this.props.match.params.id
-    const url = `${API.urlLogements}/${id}`
-    console.log(url)
-    axios.get(url).then((response) => {
+    const urlLogements = `${API.urlLogements}/${id}`
+    console.log(urlLogements)
+    axios.get(urlLogements).then((response) => {
       this.setState ({
         titre : response.data.titre,
         description: response.data.description,
@@ -66,9 +62,9 @@ class AnnonceLogement extends Component {
         loyer: response.data.loyer,
         charges: response.data.charges,
         photo: response.data.photo,
-        type: response.data.typeLogement,
         rue: response.data.rue,
-        ville :response.data.ville
+        ville :response.data.ville,
+        meuble: response.data.meuble
       })
     });
     const urlUtilisateur = `${API.urlAnnonces}/${id}/${API.urlUtilisateur}`
@@ -81,15 +77,19 @@ class AnnonceLogement extends Component {
         telephone: response.data.telephone
       })
     });
+    const urlType = `${API.urlLogements}/${id}/${API.urlType}`
+    console.log(urlUtilisateur)
+    axios.get(urlType).then((response) => {
+      this.setState ({
+        type : response.data
+      })
+    });
     const urlPhoto = `${API.urlPhotos}/24`
     axios.get(urlPhoto)
       .then((response)=>{
-        console.log(typeof response)
         this.setState({
           image: response.data,
-          url : URL.createObjectURL(response)
         })
-        console.log(response.data)
       })
       .catch((error) => {
         console.log(error)
@@ -97,11 +97,8 @@ class AnnonceLogement extends Component {
   }
   
   render() {
-    console.log(this.state)
     const titre = this.state.titre
     const description = this.state.description.sub(0,100)
-    let url = this.image && URL.createObjectURL(this.image)
-    console.log(this.url)
     return (
       <div>
         <Helmet>
@@ -127,12 +124,11 @@ class AnnonceLogement extends Component {
 
               <div className="divWithBorder pt-4 pb-4">
                 <h4>Critères</h4>
-                <img src={url} alt=""/>
 
                 <Row>
                   {/* Type de logement */}
                   <Col>
-                    <FontAwesomeIcon icon={faBuilding}/>{this.state.type}
+                    <FontAwesomeIcon icon={faBuilding}/>{' '}{this.state.type}
                   </Col>
                   {/* Superficie */}
                   <Col>
@@ -145,9 +141,13 @@ class AnnonceLogement extends Component {
                     <FontAwesomeIcon icon={faMapMarkerAlt} />
                     {' '}{this.state.rue}{', '}{this.state.ville}
                   </Col>     
-
-                  <Col>
-                  </Col>             
+                   {/* Meublé? */}
+                   <Col>
+                    <FontAwesomeIcon icon={faCouch} />
+                    {' '}
+                    {this.state.meuble && 'Meublé'}
+                    {!this.state.meuble && 'Non meublé'}
+                  </Col>            
                 </Row>
               </div>
               <div className="divWithBorder pt-4 pb-4 mb-4">
