@@ -1,10 +1,7 @@
 import React from 'react';
-import {BrowserRouter as Router, 
-        Route, 
+import {Route, 
         Switch,
-        Redirect,
-        useHistory,
-        useLocation} from 'react-router-dom'
+        Redirect} from 'react-router-dom'
 import {Helmet} from "react-helmet";
 import Home from './pages/home'
 import Logements from './pages/logements'

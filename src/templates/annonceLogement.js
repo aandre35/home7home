@@ -51,6 +51,8 @@ class AnnonceLogement extends Component {
     mail: '',
     telephone: '',
     photo:'',
+    image: {},
+    url:''
   }
   componentWillMount() {
     const id = this.props.match.params.id
@@ -68,7 +70,6 @@ class AnnonceLogement extends Component {
         rue: response.data.rue,
         ville :response.data.ville
       })
-      console.log(this.state)
     });
     const urlUtilisateur = `${API.urlAnnonces}/${id}/${API.urlUtilisateur}`
     console.log(urlUtilisateur)
@@ -79,14 +80,28 @@ class AnnonceLogement extends Component {
         mail: response.data.mail,
         telephone: response.data.telephone
       })
-      console.log(this.state)
     });
+    const urlPhoto = `${API.urlPhotos}/24`
+    axios.get(urlPhoto)
+      .then((response)=>{
+        console.log(typeof response)
+        this.setState({
+          image: response.data,
+          url : URL.createObjectURL(response)
+        })
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
   
   render() {
-
+    console.log(this.state)
     const titre = this.state.titre
     const description = this.state.description.sub(0,100)
+    let url = this.image && URL.createObjectURL(this.image)
+    console.log(this.url)
     return (
       <div>
         <Helmet>
@@ -110,9 +125,10 @@ class AnnonceLogement extends Component {
                 </Card>               
               </div>
 
-
               <div className="divWithBorder pt-4 pb-4">
                 <h4>Critères</h4>
+                <img src={url} alt=""/>
+
                 <Row>
                   {/* Type de logement */}
                   <Col>
@@ -120,7 +136,7 @@ class AnnonceLogement extends Component {
                   </Col>
                   {/* Superficie */}
                   <Col>
-                    <img src="https://img.icons8.com/metro/16/000000/surface.png"/>{' '}{this.state.superficie}{' m2'}
+                    <img src="https://img.icons8.com/metro/16/000000/surface.png" alt="superficie"/>{' '}{this.state.superficie}{' m2'}
                   </Col>
                 </Row>  
                 <Row>
@@ -148,7 +164,8 @@ class AnnonceLogement extends Component {
                     <img 
                       src={userImage} 
                       style={{width: "35px"}}
-                      alt="user image"/>
+                      alt="user"
+                    />
                       {' '}{this.state.prenom} {this.state.nom}
                     </h6>
                 </CardHeader> 

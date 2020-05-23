@@ -4,8 +4,7 @@ import MyNavbar from '../components/navbar'
 import Banner from '../components/banner'
 import {Helmet} from "react-helmet";
 import {Auth} from '../App.js'
-import {Nav, NavItem, TabContent, TabPane, NavLink, Row, Col, 
-  Card, CardBody, CardTitle, CardText, Button, Container, Form, FormGroup, Label, Input} from 'reactstrap'
+import {Nav, NavItem, TabContent, TabPane, NavLink, Row, Col, Container, Form, FormGroup, Label, Input} from 'reactstrap'
 import classnames from 'classnames';
 import CadreAnnonce from '../components/cadreAnnonce'
 import FormNouvelleAnnonce from '../components/formNouvelleAnnonce'
@@ -28,6 +27,8 @@ class Compte extends Component {
   componentWillMount() {
     const urlUtilisateur = `${API.urlUtilisateurs}/${Auth.userid}`
     axios.get(urlUtilisateur).then((response) => {
+      console.log(urlUtilisateur)
+      console.log(response.data)
       this.setState({
         user : response.data,
         annonces: response.data.annonces
@@ -35,6 +36,8 @@ class Compte extends Component {
     });
   }
   render() {
+    console.log("utilisateur", this.user)
+    console.log(this.state)
     const user = this.state.user
     let annonces = this.state.annonces.map((annonce) => {
       return (

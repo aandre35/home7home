@@ -1,9 +1,9 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component} from 'react';
 import { Button,Card,
   Form, FormGroup, Label, Input, FormText, Container, Row, CardHeader, CardBody, CardFooter} from 'reactstrap';
 import axios from 'axios'
 import API from '../../API.js'
-import {Link, Redirect, useHistory, useLocation} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {Auth} from '../../App.js'
 
 class FormConnexion extends Component {
@@ -52,7 +52,7 @@ class FormConnexion extends Component {
     console.log(url)
     axios.get(url)
       .then((response) => {
-        console.log(response)
+        console.log(response.data)
         Auth.authenticate(response.data)
         this.setRedirect()
       })

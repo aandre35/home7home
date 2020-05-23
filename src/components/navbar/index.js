@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { Component } from 'react';
 import {
   Collapse,
   Navbar,
@@ -10,18 +10,35 @@ import {
   DropdownMenu,
   DropdownItem,
   NavbarText,
+  NavLink
 } from 'reactstrap';
-import {Link, useHistory, useLocation, Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
-import FormConnexion from '../FormLogin'
-import FormInscription from '../modalFormInscription';
+import FormInscription from '../formInscription';
 import SearchBar from '../searchBarNav'
 import {Auth} from '../../App.js'
+import axios from 'axios';
+
+const API = require("../../API.js")
 
 class MyNavbar extends Component{
   state= {
     modal: false,
+    utilisateur: ""
+  }
+  componentWillMount() {
+    if (Auth.isAuthenticated) {
+      const urlUtilisateur = `${API.urlUtilisateurs}/${Auth.userid}`
+      axios.get(urlUtilisateur).then((response) => {
+        console.log(urlUtilisateur)
+        const utilisateur= response.data.prenom + "" + response.data.nom
+        this.setState({
+          utilisateur : utilisateur,
+        })
+      });      
+    } 
+
   }
   setModal= () => {
     this.setState({
@@ -30,6 +47,7 @@ class MyNavbar extends Component{
   }
 
   render(){
+    console.log(this.state.utilisateur)
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -76,39 +94,60 @@ class MyNavbar extends Component{
                   </Link>
                 </DropdownMenu>
               </UncontrolledDropdown>
-
               <NavbarText>
-              Authentifié : { String(Auth.isAuthenticated)}{' '}{ ", id de l'utilisateur : "}{Auth.userid}
+              Authentifié : { String(Auth.isAuthenticated)}{' '}
               </NavbarText>
-            </Nav>
+            </Nav>    
             <Nav className="ml-auto" navbar>
               <SearchBar/>
+              {Auth.isAuthenticated &&
+              <>
+                <NavbarText>
+                  {' '}{this.state.utilisateur}{' '}
+                </NavbarText>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    <FontAwesomeIcon icon={faUser} />
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <Link to="/mon-compte">
+                      <DropdownItem>
+                        Mon compte
+                      </DropdownItem>
+                    </Link>
+                    <Link to="/admin">
+                      <DropdownItem>
+                        Admin
+                      </DropdownItem>
+                    </Link>
+                    <DropdownItem divider />
+                      <Logout/>
+
+                    {/*                 
+                    <Link to="/inscription">
+                      <DropdownItem>
+                        Inscription
+                      </DropdownItem>
+                    </Link> 
+                    */}
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                </>
+              }
+
+              {!Auth.isAuthenticated && 
+              <>
+
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   <FontAwesomeIcon icon={faUser} />
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <Link to="/mon-compte">
-                    <DropdownItem>
-                      Mon compte
-                    </DropdownItem>
-                  </Link>
-                  <Link to="/admin">
-                    <DropdownItem>
-                      Admin
-                    </DropdownItem>
-                  </Link>
-                  <DropdownItem divider />
-                  {!Auth.isAuthenticated &&
                   <Link to="/login">
-                    <DropdownItem>
-                      Se connecter
-                    </DropdownItem> 
-                  </Link>
-                  }
-                  {Auth.isAuthenticated &&
-                    <Logout/>
-                  } 
+                      <DropdownItem>
+                        Se connecter
+                      </DropdownItem>
+                    </Link>
                   <FormInscription buttonLabel="S'inscrire"/>
                   {/*                 
                   <Link to="/inscription">
@@ -119,6 +158,8 @@ class MyNavbar extends Component{
                   */}
                 </DropdownMenu>
               </UncontrolledDropdown>
+              </>
+            }
             </Nav>
           </Collapse>
         </Navbar>

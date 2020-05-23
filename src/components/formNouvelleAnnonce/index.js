@@ -1,6 +1,5 @@
-import React, { Component, useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, DropdownItem,
-  Form, FormGroup, Label, Input, Row, Col, FormText, Container } from 'reactstrap';
+import React, { Component } from 'react';
+import { Button, Form, FormGroup, Label, Input, Row, Col, FormText} from 'reactstrap';
 import axios from 'axios'
 
 const API = require('../../API.js')
@@ -84,7 +83,6 @@ class FormInscription extends Component {
   }
 
   render() {
-    const {buttonLabel, className} = this.props
     const {titre, description, typeAnnonce, date} = this.state;
     let typesAnnonces = this.state.typesAnnonces.map((typeAnnonce) => {
       return (

@@ -5,6 +5,7 @@ const urlLogements= `${url}/logements`;
 const urlServices= `${url}/services`;
 const urlEmplois= `${url}/emplois`;
 const urlAnnonces= `${url}/annonces`;
+const urlPhotos = `${url}/photos`;
 const urlTypesEmplois= `${url}/types-emplois`;
 const urlTypesLogements = `${url}/types-logements`;
 const urlTypesServices = `${url}/types-services`;
@@ -23,7 +24,7 @@ module.exports = {
   urlServices: urlServices,
   urlEmplois: urlEmplois,
   urlAnnonces: urlAnnonces,
-
+  urlPhotos: urlPhotos,
   urlTypesEmplois : urlTypesEmplois,
   urlTypesLogements : urlTypesLogements,
   urlTypesServices : urlTypesServices,

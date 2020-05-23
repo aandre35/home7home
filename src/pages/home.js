@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import MyNavbar from '../components/navbar'
 import Banner from '../components/banner'
-import SearchBar from '../components/searchBarHome'
 import {Helmet} from "react-helmet";
-import { Container, CardImg, CardBody, CardTitle, CardText, CardSubtitle, Row, Col, Card, Button } from 'reactstrap';
+import { Container, CardImg, CardBody, CardTitle, CardSubtitle, Row, Col, Card, Button } from 'reactstrap';
 import axios from 'axios'
 import draftImg from './318x180.svg'
 import { Link } from 'react-router-dom';

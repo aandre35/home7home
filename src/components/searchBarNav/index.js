@@ -34,7 +34,7 @@ class SearchBar extends Component {
             />
           </FormGroup>
           <Link to={`/results/${this.state.endUrl}`}>
-            <Button color="info">
+            <Button color="dark">
               <FontAwesomeIcon icon={faSearch}/>
             </Button>          
           </Link>   

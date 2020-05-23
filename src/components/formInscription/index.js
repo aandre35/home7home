@@ -1,6 +1,6 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, DropdownItem,
-  Form, FormGroup, Label, Input, Row, Col, FormText, Container } from 'reactstrap';
+  Form, FormGroup, Label, Input, Row, Col, FormText} from 'reactstrap';
 import axios from 'axios'
 
 const API = require('../../API.js')
@@ -16,6 +16,7 @@ class FormInscription extends Component {
       mail: '',
       password: '',
       error: '',
+      photo : null,
       modal: false
     }
   }
@@ -27,6 +28,15 @@ class FormInscription extends Component {
       }
     )
     console.log(this.state)
+  }
+
+  handleChangeFile = (e) => {
+    e.preventDefault()
+    this.setState(
+      {
+        photo: e.target.files[0],
+      }
+    )
   }
 
   handleSubmit = event => {
@@ -53,6 +63,22 @@ class FormInscription extends Component {
         this.setState({
           error: `Vous êtes déjà inscrit.`
         });
+      })
+    const urlPhoto=`${API.url}/upload`
+    const formData = new FormData() 
+    formData.append('photo', this.state.photo) 
+    console.log("data :", formData)   
+    console.log(this.state.photo)
+    axios({method: 'post',
+                url: urlPhoto,
+                data: formData,
+                headers: {'Content-Type': 'multipart/form-data' }
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
       })
   }
 
@@ -123,7 +149,12 @@ class FormInscription extends Component {
             </Row>   
             <FormGroup>
               <Label for="exampleFile">Photo</Label>
-              <Input type="file" name="file" id="exampleFile" />
+              <Input 
+                type="file" 
+                name="file" 
+                id="exampleFile" 
+                onChange={this.handleChangeFile}
+              />
               <FormText color="muted">
               formtas acceptés : ...
               </FormText>
