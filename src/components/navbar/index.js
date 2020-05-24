@@ -32,7 +32,7 @@ class MyNavbar extends Component{
       const urlUtilisateur = `${API.urlUtilisateurs}/${Auth.userid}`
       axios.get(urlUtilisateur).then((response) => {
         console.log(urlUtilisateur)
-        const utilisateur= response.data.prenom + "" + response.data.nom
+        const utilisateur= response.data.prenom + " " + response.data.nom
         this.setState({
           utilisateur : utilisateur,
         })
@@ -101,8 +101,8 @@ class MyNavbar extends Component{
               <SearchBar/>
               {Auth.isAuthenticated &&
               <>
-                <NavbarText>
-                  {' '}{this.state.utilisateur}{' '}
+                <NavbarText className="pr-3">
+                  {this.state.utilisateur}
                 </NavbarText>
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret>

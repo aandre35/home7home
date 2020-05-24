@@ -21,7 +21,7 @@ class SearchBar extends Component {
   render() {
     return(
       <>
-        <Form inline>
+        <Form inline className="pr-3">
           <FormGroup>
             <Input 
               id="search"

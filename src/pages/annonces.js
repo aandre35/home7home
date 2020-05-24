@@ -23,15 +23,19 @@ class Annonces extends Component {
     logementSelected: false,
     serviceSelected: false,
     emploiSelected: false,
+    tagsTypesLogement: new Map() 
+  }
+  init= () => {
+    this.setState({
+      allSelected: true,
+      logementSelected: false,
+      serviceSelected: false,
+      emploiSelected: false,
+    }) 
   }
   select= (e) =>{
     if (e.target.value === "all") {
-      this.setState({
-        allSelected: true,
-        logementSelected: false,
-        serviceSelected: false,
-        emploiSelected: false,
-      })
+      this.init()
     } 
     else {
       this.setState(
@@ -51,6 +55,16 @@ class Annonces extends Component {
       )    
     }
   }
+
+  typeLogementChange = (e) => {
+    e.preventDefault()
+    const bool = this.state.tagsTypesLogement.get(e.target.value)
+    var newTags = this.state.tagsTypesLogement
+    newTags.set(e.target.value, !bool)
+    this.setState({
+      tagsTypesLogement: newTags
+    })
+  }
   componentWillMount() {
     const urlAnnonces = `${API.urlAnnonces}${API.urlGet}`
     console.log(urlAnnonces)
@@ -59,21 +73,22 @@ class Annonces extends Component {
         annonces : response.data
       })
     });
-    const urlLogements = `${API.urlLogements}${API.urlGet}`
+
+    const urlLogements = `${API.urlLogements}${API.urlSearch}`
     console.log(urlLogements)
     axios.get(urlLogements).then((response) => {
       this.setState({
         logements : response.data
       })
     });
-    const urlEmplois = `${API.urlEmplois}${API.urlGet}`
+    const urlEmplois = `${API.urlEmplois}${API.urlSearch}`
     console.log(urlEmplois)
     axios.get(urlEmplois).then((response) => {
       this.setState({
         emplois : response.data
       })
     });
-    const urlServices = `${API.urlServices}${API.urlGet}`
+    const urlServices = `${API.urlServices}${API.urlSearch}`
     console.log(urlServices)
     axios.get(urlServices).then((response) => {
       this.setState({
@@ -87,11 +102,15 @@ class Annonces extends Component {
         typesAnnonces : response.data
       })
     });
+    var tagsTypesLogement = new Map()
     const urlTypesLogements = `${API.urlTypesLogements}${API.urlGet}`
     console.log(urlTypesLogements)
     axios.get(urlTypesLogements).then((response) => {
+      response.data.map(r => tagsTypesLogement.set(r.type, false))
+      console.log(tagsTypesLogement)
       this.setState({
-        typesLogements : response.data
+        typesLogements : response.data,
+        tagsTypesLogement: tagsTypesLogement
       })
     });
     const urlTypesEmplois = `${API.urlTypesEmplois}${API.urlGet}`
@@ -109,15 +128,23 @@ class Annonces extends Component {
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state) {
+      console.log(this.state.tagsTypesLogement)
+      console.log(prevState.tagsTypesLogement)
+      var urlTypesLogements;
+    }
+  }
   render() {
     {/* Annonces */}
     let annonces = this.state.annonces.map((annonce) => {
+      const photo =annonce.photosAnnonce[0]!= undefined ? `${API.urlPhotos}/${annonce.photosAnnonce[0].id}` : "Pas de photo"
       return (
         <Cadre key={annonce.id}
           titre={annonce.titre}
           description={annonce.description}
-          photo="http://localhost:8080/api/photos/24"
-          url={`logements/${annonce.id}`}
+          photo={photo}
+          url={`logements/${annonce.id}`} 
         />
       )
     });
@@ -140,11 +167,28 @@ class Annonces extends Component {
       return(
         <FormGroup check inline key={typeLogement.id}>
           <Label check>
-            <Input type="checkbox" /> {typeLogement.type}
+            <Input 
+              type="checkbox" 
+              name="typeLogement"
+              value={typeLogement.type}
+              onChange={this.typeLogementChange}
+            />
+              {typeLogement.type}
           </Label>
         </FormGroup>
       )
     })
+    let logements = this.state.logements.map((annonce) => {
+      const photo =annonce.photosAnnonce[0]!= undefined ? `${API.urlPhotos}/${annonce.photosAnnonce[0].id}` : "Pas de photo"
+      return (
+        <Cadre key={annonce.id}
+          titre={annonce.titre}
+          description={annonce.description}
+          photo={photo}
+          url={`logements/${annonce.id}`}
+        />
+      )
+    });
     {/* Emplois */}
     let typesEmplois = this.state.typesEmplois.map((typesEmploi) => {
       return (
@@ -155,6 +199,17 @@ class Annonces extends Component {
         </FormGroup>
       )
     })
+    let emplois = this.state.emplois.map((annonce) => {
+      const photo =annonce.photosAnnonce[0]!= undefined ? `${API.urlPhotos}/${annonce.photosAnnonce[0].id}` : "Pas de photo"
+      return (
+        <Cadre key={annonce.id}
+          titre={annonce.titre}
+          description={annonce.description}
+          photo={photo}
+          url={`emplois/${annonce.id}`} 
+        />
+      )
+    });
     var lieuxEmploisDiff = []
     let putLieuxEmploisDiff = this.state.emplois.forEach((emploi) => {
       if (lieuxEmploisDiff.indexOf(emploi.lieu) === -1) {
@@ -180,8 +235,19 @@ class Annonces extends Component {
         </FormGroup>
       )
     })
+    let services = this.state.services.map((annonce) => {
+      const photo =annonce.photosAnnonce[0]!= undefined ? `${API.urlPhotos}/${annonce.photosAnnonce[0].id}` : "Pas de photo"
+      return (
+        <Cadre key={annonce.id}
+          titre={annonce.titre}
+          description={annonce.description}
+          photo={photo}
+          url={`services/${annonce.id}`} //TODO
+        />
+      )
+    });
     const titre = "Annonces";
-    const description = "Toutes nos annonces";
+    const description = "Nous proposons des annonces de logements, de divers services, ainsi que des offres d'emplois.";
     return (
       <div>
         <Helmet>
@@ -212,7 +278,7 @@ class Annonces extends Component {
               {this.state.logementSelected &&
               <>
                 <CardTag title="Type de logement">
-                  <Form>
+                  <Form name="formTypeLogements">
                     {typesLogements}
                   </Form>
                 </CardTag>
@@ -293,7 +359,11 @@ class Annonces extends Component {
               }
             </Col>
             <Col md="9">
-              {annonces}
+              {this.state.allSelected && annonces}
+              {this.state.logementSelected && logements}
+              {this.state.serviceSelected && services}
+              {this.state.emploiSelected && emplois}
+
             </Col>
           </Row>
         </Container>

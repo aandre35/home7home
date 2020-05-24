@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 class Cadre extends Component {
   render() {
-    const {titre, description, photo, url} = this.props
+    const {titre, description, photo, url, type} = this.props
     const smallDescription = description.substr(0,200) 
     return (
       <Card className="mb-5 shadow">
@@ -16,13 +16,17 @@ class Cadre extends Component {
           </Col>
           <Col lg="8">
             <div className="p-2 text-justify">
-            <Link to={url}>
-              <Media heading>
-                {titre}
-              </Media>
-            </Link>
+              <Link to={url}>
+                <Media heading>
+                  {titre}
+                </Media>
+              </Link>
+              <div className="text-muted pb-2">
+                {type}
+              </div>
               {smallDescription}{'...'}
             </div>
+            
           </Col>
         </Row>        
       </Card>

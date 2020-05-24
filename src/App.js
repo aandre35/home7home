@@ -68,7 +68,7 @@ export const Auth = {
     Auth.isAuthenticated = true;
     Auth.userid = userid
     //Auth.userid = 2
-    setTimeout(console.log("Exécuté après 100 ms"), 100); // fake async
+    setTimeout(console.log("Exécuté après 100 ms"), 100); 
   },
   signout() {
     Auth.isAuthenticated = false;

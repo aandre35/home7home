@@ -15,6 +15,10 @@ class Compte extends Component {
   state = {
     user: [],
     annonces: [],
+    photo:"",
+    logementSelected: false,
+    serviceSelected: false,
+    emploiSelected: false,
     activeTab: 1
   }
   setActiveTab(tab) {
@@ -31,26 +35,30 @@ class Compte extends Component {
       console.log(response.data)
       this.setState({
         user : response.data,
-        annonces: response.data.annonces
+        annonces: response.data.annonces,
+        photo: response.data.photoUtilisateur!==null ?`${API.urlPhotos}/${response.data.photoUtilisateur.id}` : undefined
       })
     });
   }
   render() {
-    console.log("utilisateur", this.user)
-    console.log(this.state)
     const user = this.state.user
+    const titre = "Mon compte";
+    const description = `Bienvenue ${user.prenom}, vous pouvez ajouter de nouvelles annonces`;
+
+    
+    const photo = this.state.photo
     let annonces = this.state.annonces.map((annonce) => {
+      const photoAnnonce =`${API.urlPhotos}/${annonce.photosAnnonce[0].id}`
       return (
         <CadreAnnonce
           titre={annonce.titre}
           description={annonce.description}
-          photo={annonce.photosAnnonce}
+          photo={photoAnnonce}
           url="./"
         />
       );
     })
-    const titre = "Mon compte";
-    const description = `Bienvenue ${user.prenom}, vous pouvez ajouter de nouvelles annonces`;
+
     return (
       <>
         <Helmet>
@@ -91,58 +99,71 @@ class Compte extends Component {
           {/* Mon profil */}
           <TabContent activeTab={this.state.activeTab}>
             <TabPane tabId="1">
-                <Form >
-                  <Row>
-                    <Col >
-                      <FormGroup>
-                        <Label for="exampleAddress">Nom</Label>
-                        <Input 
-                          type="text" 
-                          name="nom"  
-                          value={user.nom}
-                          placeholder="nom" 
-                          onChange={this.handleChange}
-                        />
-                      </FormGroup>   
-                    </Col>
-                    <Col>
-                      <FormGroup>
-                        <Label for="exampleAddress">Prénom</Label>
-                        <Input 
-                          type="text" 
-                          name="prenom" 
-                          value={user.prenom}
-                          placeholder="prénom" 
-                          onChange={this.handleChange}
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <FormGroup>
-                        <Label for="exampleEmail">Email</Label>
-                        <Input 
-                          type="email" 
-                          name="mail" 
-                          value ={user.mail}
-                          placeholder="email" 
-                          onChange={this.handleChange} />
-                      </FormGroup>
-                    </Col>
-                    <Col>
-                      <FormGroup>
-                        <Label for="examplePassword">Password</Label>
-                        <Input 
-                          type="password" 
-                          name="password" 
-                          value={user.password}
-                          placeholder="password" 
-                          onChange={this.handleChange} />
-                      </FormGroup>         
-                    </Col>
-                  </Row>   
-                </Form>
+              <Row className="align-items-center">
+                <Col md="3" className= "pb-5">
+                  <img 
+                    className="w-100" 
+                    style={{borderRadius: "50%"}} 
+                    src={photo} 
+                    alt={user.prenom}
+                  />
+                </Col>
+                <Col md="9" className= "pb-5">
+                  <Form >
+                    <Row >
+                      <Col >
+                        <FormGroup>
+                          <Label for="exampleAddress">Nom</Label>
+                          <Input 
+                            type="text" 
+                            name="nom"  
+                            value={user.nom}
+                            placeholder="nom" 
+                            onChange={this.handleChange}
+                          />
+                        </FormGroup>   
+                      </Col>
+                      <Col>
+                        <FormGroup>
+                          <Label for="exampleAddress">Prénom</Label>
+                          <Input 
+                            type="text" 
+                            name="prenom" 
+                            value={user.prenom}
+                            placeholder="prénom" 
+                            onChange={this.handleChange}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <FormGroup>
+                          <Label for="exampleEmail">Email</Label>
+                          <Input 
+                            type="email" 
+                            name="mail" 
+                            value ={user.mail}
+                            placeholder="email" 
+                            onChange={this.handleChange} />
+                        </FormGroup>
+                      </Col>
+                      <Col>
+                        <FormGroup>
+                          <Label for="examplePassword">Password</Label>
+                          <Input 
+                            type="password" 
+                            name="password" 
+                            value={user.password}
+                            placeholder="password" 
+                            onChange={this.handleChange} />
+                        </FormGroup>         
+                      </Col>
+                    </Row>   
+                  </Form>
+                </Col>
+              </Row>
+                
             </TabPane>
             {/* Mes annonces */}
             <TabPane tabId="2">

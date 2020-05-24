@@ -10,26 +10,7 @@ import { faEnvelope, faBuilding, faMapMarkerAlt, faPhone, faCouch} from '@fortaw
 import userImage from './userImage.png'
 const API = require('../API.js')
 
-const photo = `${API.urlPhotos}/24`
-const items = [
-  {
-    src: photo,
-    altText: 'Slide 1',
-    key: '1'
-  },
-  {
-    src: photo,
-    altText: 'Slide 2',
-    key: '2'
-  },
-  {
-    src: photo,
-    altText: 'Slide 3',
-    key: '3'
-  }
-];
 
-const MonCarousel = () => <UncontrolledCarousel items={items} />;
 class AnnonceLogement extends Component {
   state={
     titre: '',
@@ -45,8 +26,7 @@ class AnnonceLogement extends Component {
     nom: '',
     mail: '',
     telephone: '',
-    photo:'',
-    image: {},
+    photos:[],
     url:'',
     meuble: new Boolean()
   }
@@ -61,7 +41,7 @@ class AnnonceLogement extends Component {
         superficie: response.data.superficie,
         loyer: response.data.loyer,
         charges: response.data.charges,
-        photo: response.data.photo,
+        photos: response.data.photosAnnonce,
         rue: response.data.rue,
         ville :response.data.ville,
         meuble: response.data.meuble
@@ -77,28 +57,29 @@ class AnnonceLogement extends Component {
         telephone: response.data.telephone
       })
     });
-    const urlType = `${API.urlLogements}/${id}/${API.urlType}`
+    const urlType = `${API.urlLogements}/${id}${API.urlType}`
     console.log(urlUtilisateur)
     axios.get(urlType).then((response) => {
       this.setState ({
         type : response.data
       })
     });
-    const urlPhoto = `${API.urlPhotos}/24`
-    axios.get(urlPhoto)
-      .then((response)=>{
-        this.setState({
-          image: response.data,
-        })
-      })
-      .catch((error) => {
-        console.log(error)
-      })
   }
   
   render() {
     const titre = this.state.titre
     const description = this.state.description.sub(0,100)
+    let i=0
+    let photos = this.state.photos.map((photo) => {
+      i++
+      return (
+        {
+        src: `${API.urlPhotos}/${photo.id}`,
+        altText: `Slide ${i}`,
+        key: `${i}`
+      }
+      );
+    })
     return (
       <div>
         <Helmet>
@@ -114,7 +95,7 @@ class AnnonceLogement extends Component {
 
               <div className="divWithBorder pb-5">
                 <Card className="shadow">
-                  <MonCarousel />
+                <UncontrolledCarousel items={photos} />
                   <div className="p-4">
                     <h1>{this.state.titre}</h1>
                     <h5><span className="text-muted">{this.state.loyer}{' €'}</span>{' / mois'}</h5>

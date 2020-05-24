@@ -26,12 +26,12 @@ class Home extends Component {
   render() {
     const size =4
     let annonces = this.state.annonces.slice(0,size).map((annonce) => {
-      const image = "http://localhost:8080/api/photos/24"
+      const photo =`${API.urlPhotos}/${annonce.photosAnnonce[0].id}`
       return (
         
         <Col md className="pb-4">
           <Card key={annonce.id} className="card-exp">
-            <CardImg top width="100%" src={image} alt="Card image cap" />
+            <CardImg top width="100%" src={photo} alt="Card image cap" />
             <CardBody>
               <CardTitle>{annonce.titre}</CardTitle>
               <CardSubtitle className="text-muted">{annonce.typeAnnonce}</CardSubtitle>

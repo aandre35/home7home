@@ -16,7 +16,8 @@ class FormInscription extends Component {
       mail: '',
       password: '',
       error: '',
-      photo : null,
+      photoPath : "",
+      idUtilisateur: 0,
       modal: false
     }
   }
@@ -31,12 +32,12 @@ class FormInscription extends Component {
   }
 
   handleChangeFile = (e) => {
-    e.preventDefault()
     this.setState(
       {
         photo: e.target.files[0],
       }
     )
+    console.log(e.target.value)
   }
 
   handleSubmit = event => {
@@ -56,7 +57,6 @@ class FormInscription extends Component {
       .then(res => {
         console.log(res);
         console.log(res.data);
-        this.setModal();
       })
       .catch(error => {
         console.log(error)
@@ -64,22 +64,34 @@ class FormInscription extends Component {
           error: `Vous êtes déjà inscrit.`
         });
       })
-    const urlPhoto=`${API.url}/upload`
-    const formData = new FormData() 
-    formData.append('photo', this.state.photo) 
-    console.log("data :", formData)   
-    console.log(this.state.photo)
-    axios({method: 'post',
-                url: urlPhoto,
-                data: formData,
-                headers: {'Content-Type': 'multipart/form-data' }
+    setTimeout(console.log("1000ms"), 1000)
+    const urlUtilisateur = `${API.urlUtilisateurs}${API.urlGet}`
+    console.log(urlUtilisateur)
+    axios.get(urlUtilisateur)
+      .then(res => {
+        var id;
+        res.data.map((d) => {id=d.id})
+        console.log(id)
+        this.setState({
+          idUtilisateur: id
+        })
       })
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
+      .catch(error => {
         console.log(error)
+    })
+    setTimeout(console.log("1000ms"), 1000)
+    const urlPostPhoto = `${API.urlPhotos}/utilisateur/${this.idUtilisateur}?photofile=${this.photoPath}`
+    console.log(urlPostPhoto)
+    axios.get(urlPostPhoto)
+      .then(response => {
+        console.log(response.data)
       })
+      .catch(error => {
+        console.log(error)
+    })
+
+    this.setModal();
+
   }
 
   setModal= () => {
@@ -89,7 +101,7 @@ class FormInscription extends Component {
   }
   render() {
     const {buttonLabel, className} = this.props
-    const {nom, prenom, mail, password} = this.state;
+    const {nom, prenom, mail, password, photoPath} = this.state;
     return (
       <>
         <DropdownItem onClick={this.setModal}>{buttonLabel}</DropdownItem>
@@ -149,12 +161,16 @@ class FormInscription extends Component {
             </Row>   
             <FormGroup>
               <Label for="exampleFile">Photo</Label>
-              <Input 
-                type="file" 
-                name="file" 
-                id="exampleFile" 
-                onChange={this.handleChangeFile}
-              />
+              <FormGroup>
+                <Label for="exampleAddress">Prénom</Label>
+                <Input 
+                  type="text" 
+                  name="photoPath" 
+                  value={photoPath}
+                  placeholder="chemin de votre photo" 
+                  onChange={this.handleChange}
+                />
+              </FormGroup>
               <FormText color="muted">
               formtas acceptés : ...
               </FormText>

@@ -118,6 +118,7 @@ class ListUtilisateurs extends Component {
   }
   render() {
     let utilisateurs = this.state.utilisateurs.map((utilisateur) => {
+      const photo = utilisateur.photoUtilisateur!== null ? `${API.urlPhotos}/${utilisateur.photoUtilisateur.id}` : "Pas d'image"
       return (
         <tr key={utilisateur.id}>
             <th scope="row">{utilisateur.id}</th>
@@ -126,7 +127,7 @@ class ListUtilisateurs extends Component {
             <td>{utilisateur.mail}</td>
             <td>{utilisateur.password}</td>
             <td>{utilisateur.annonces.map((annonce => `${annonce.titre} `))}</td>
-            <td>{utilisateur.photoUtilisateur}</td>
+            <td>{photo}</td>
           </tr>             
       )
     });
@@ -168,13 +169,26 @@ class ListAnnonces extends Component {
   }
   render() {
     let annonces = this.state.annonces.map((annonce) => {
+      let photos;
+      if (annonce.photosAnnonce.length ===0) {
+        photos = () => {
+          return "Pas d'image"
+        }
+      } else {
+        photos = annonce.photosAnnonce.map((photo) =>{
+          return `${API.urlPhotos}/${photo.id}`;
+        })
+      }
+      
+      
       return (
         <tr key={annonce.id}>
             <th scope="row">{annonce.id}</th>
             <td>{annonce.titre}</td>
             <td>{annonce.description}</td>
             <td>{annonce.utilisateur}</td>
-            <td>{annonce.typeAnnonce}</td>
+            <td>{annonce.typeAnnonce.type}</td>
+            <td>{photos}</td>
             <td>{annonce.date}</td>
           </tr>             
       )
@@ -189,6 +203,7 @@ class ListAnnonces extends Component {
               <th>Description</th>
               <th>Utilisateur</th>
               <th>Type d'Annonce</th>
+              <th>Photo</th>
               <th>Date</th>
             </tr>
           </thead>
