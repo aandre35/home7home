@@ -18,6 +18,7 @@ const urlUtilisateur = `/utilisateur`
 const urlConnexion = `/connect`
 const urlType =`/type`
 const urlSearch= `/search`
+const urlAdmin = `/admin`
 
 module.exports = {
   url : url,
@@ -41,5 +42,6 @@ module.exports = {
   urlUtilisateur: urlUtilisateur,
   urlConnexion: urlConnexion,
   urlType: urlType,
-  urlSearch: urlSearch
+  urlSearch: urlSearch,
+  urlAdmin: urlAdmin
 };

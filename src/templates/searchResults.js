@@ -55,12 +55,13 @@ class SearchResults extends Component {
   render() {
     const listAnnonces = this.state.annonces
     let annonces = listAnnonces.map((annonce) => {
+      const photo =annonce.photosAnnonce[0]!= undefined ? `${API.urlPhotos}/${annonce.photosAnnonce[0].id}` : "Pas de photo"
       return (
         <Cadre key={annonce.id}
           titre={annonce.titre}
           description={annonce.description}
-          photo={annonce.photosAnnonce}
-          url={`logements/${annonce.id}`}
+          photo={photo}
+          id={annonce.id}
         />
       )
     });

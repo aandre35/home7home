@@ -9,12 +9,14 @@ import { Container, Row, Col,
 import CardTag from '../components/cardTag'
 const API = require('../API.js')
 
+
 class Annonces extends Component {
   state = {
     annonces: [],
     logements: [],
     services: [],
     emplois: [],
+    typeAnnonce:'',
     typesAnnonces: [],
     typesLogements: [],
     typesEmplois: [],
@@ -127,7 +129,7 @@ class Annonces extends Component {
       })
     });
   }
-
+  /*
   componentDidUpdate(prevProps, prevState) {
     if (prevState !== this.state) {
       console.log(this.state.tagsTypesLogement)
@@ -135,6 +137,8 @@ class Annonces extends Component {
       var urlTypesLogements;
     }
   }
+  */
+
   render() {
     {/* Annonces */}
     let annonces = this.state.annonces.map((annonce) => {
@@ -144,7 +148,7 @@ class Annonces extends Component {
           titre={annonce.titre}
           description={annonce.description}
           photo={photo}
-          url={`logements/${annonce.id}`} 
+          id={annonce.id}
         />
       )
     });
@@ -185,7 +189,7 @@ class Annonces extends Component {
           titre={annonce.titre}
           description={annonce.description}
           photo={photo}
-          url={`logements/${annonce.id}`}
+          id={annonce.id}
         />
       )
     });
@@ -206,7 +210,7 @@ class Annonces extends Component {
           titre={annonce.titre}
           description={annonce.description}
           photo={photo}
-          url={`emplois/${annonce.id}`} 
+          id={annonce.id}
         />
       )
     });
@@ -242,7 +246,7 @@ class Annonces extends Component {
           titre={annonce.titre}
           description={annonce.description}
           photo={photo}
-          url={`services/${annonce.id}`} //TODO
+          id={annonce.id}
         />
       )
     });

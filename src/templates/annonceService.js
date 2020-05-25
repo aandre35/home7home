@@ -6,45 +6,33 @@ import MyNavbar from '../components/navbar'
 import {Container, Row, Col, Card, CardBody, CardHeader} from 'reactstrap';
 import { UncontrolledCarousel } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faBuilding, faMapMarkerAlt, faPhone, faCouch} from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faBook, faPhone} from '@fortawesome/free-solid-svg-icons'
 import userImage from './userImage.png'
 const API = require('../API.js')
 
 
-class AnnonceLogement extends Component {
+class AnnonceService extends Component {
   state={
     titre: '',
     description: '',
-    loyer:'',
-    charges:'',
-    superficie:'',
+    lieu: '',
     type: '',
-    rue:'',
-    ville:'',
-    //Proprio
-    prenom: '',
-    nom: '',
-    mail: '',
-    telephone: '',
     photos:[],
-    meuble: new Boolean()
   }
   componentWillMount() {
     const id = this.props.match.params.id
-    const urlLogements = `${API.urlLogements}/${id}`
-    console.log(urlLogements)
-    axios.get(urlLogements).then((response) => {
+    const urlService = `${API.urlServices}/${id}`
+    console.log(urlService)
+    axios.get(urlService).then((response) => {
       this.setState ({
         titre : response.data.titre,
         description: response.data.description,
-        superficie: response.data.superficie,
-        loyer: response.data.loyer,
-        charges: response.data.charges,
+        lieu: response.data.lieu,
+        entreprise: response.data.entreprise,
+        competencesRequises: response.data.competencesRequises,
         photos: response.data.photosAnnonce,
-        rue: response.data.rue,
-        ville :response.data.ville,
-        meuble: response.data.meuble
       })
+      console.log(response.data.description)
     });
     const urlUtilisateur = `${API.urlAnnonces}/${id}/${API.urlUtilisateur}`
     console.log(urlUtilisateur)
@@ -56,8 +44,8 @@ class AnnonceLogement extends Component {
         telephone: response.data.telephone
       })
     });
-    const urlType = `${API.urlLogements}/${id}${API.urlType}`
-    console.log(urlUtilisateur)
+    const urlType = `${API.urlEmplois}/${id}${API.urlType}`
+    console.log(urlType)
     axios.get(urlType).then((response) => {
       this.setState ({
         type : response.data
@@ -106,29 +94,12 @@ class AnnonceLogement extends Component {
                 <h4>Critères</h4>
 
                 <Row>
-                  {/* Type de logement */}
+                  {/* Type d'emplois */}
                   <Col>
-                    <FontAwesomeIcon icon={faBuilding}/>{' '}{this.state.type}
-                  </Col>
-                  {/* Superficie */}
-                  <Col>
-                    <img src="https://img.icons8.com/metro/16/000000/surface.png" alt="superficie"/>{' '}{this.state.superficie}{' m2'}
-                  </Col>
+                    <FontAwesomeIcon icon={faBook}/>
+                    {' '}{this.state.type}
+                  </Col>        
                 </Row>  
-                <Row>
-                  {/* Adresse */}
-                  <Col>
-                    <FontAwesomeIcon icon={faMapMarkerAlt} />
-                    {' '}{this.state.rue}{', '}{this.state.ville}
-                  </Col>     
-                   {/* Meublé? */}
-                   <Col>
-                    <FontAwesomeIcon icon={faCouch} />
-                    {' '}
-                    {this.state.meuble && 'Meublé'}
-                    {!this.state.meuble && 'Non meublé'}
-                  </Col>            
-                </Row>
               </div>
               <div className="divWithBorder pt-4 pb-4 mb-4">
                 <h4>Description</h4>
@@ -165,4 +136,4 @@ class AnnonceLogement extends Component {
     )
   }
 }
-export default AnnonceLogement;
+export default AnnonceService;

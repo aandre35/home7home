@@ -80,7 +80,7 @@ class FormInscription extends Component {
         console.log(error)
     })
     setTimeout(console.log("1000ms"), 1000)
-    const urlPostPhoto = `${API.urlPhotos}/utilisateur/${this.idUtilisateur}?photofile=${this.photoPath}`
+    const urlPostPhoto = `${API.urlPhotos}/utilisateur/${this.state.idUtilisateur}/?photofile=${this.state.photoPath}`
     console.log(urlPostPhoto)
     axios.get(urlPostPhoto)
       .then(response => {

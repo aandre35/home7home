@@ -17,3 +17,9 @@ code {
 .card-exp{
   height: 100%;
 }
+.photo-annonce {
+  width: 100%;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+}

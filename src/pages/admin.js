@@ -126,7 +126,7 @@ class ListUtilisateurs extends Component {
             <td>{utilisateur.nom}</td>
             <td>{utilisateur.mail}</td>
             <td>{utilisateur.password}</td>
-            <td>{utilisateur.annonces.map((annonce => `${annonce.titre} `))}</td>
+            <td><ul>{utilisateur.annonces.map((annonce => <li>{annonce.titre}</li> ))}</ul></td>
             <td>{photo}</td>
           </tr>             
       )
@@ -170,16 +170,6 @@ class ListAnnonces extends Component {
   render() {
     let annonces = this.state.annonces.map((annonce) => {
       let photos;
-      if (annonce.photosAnnonce.length ===0) {
-        photos = () => {
-          return "Pas d'image"
-        }
-      } else {
-        photos = annonce.photosAnnonce.map((photo) =>{
-          return `${API.urlPhotos}/${photo.id}`;
-        })
-      }
-      
       
       return (
         <tr key={annonce.id}>
@@ -187,8 +177,7 @@ class ListAnnonces extends Component {
             <td>{annonce.titre}</td>
             <td>{annonce.description}</td>
             <td>{annonce.utilisateur}</td>
-            <td>{annonce.typeAnnonce.type}</td>
-            <td>{photos}</td>
+            <td><ul>{annonce.photosAnnonce.map((photo => <li>{API.urlPhotos}/{photo.id}</li> ))}</ul></td>
             <td>{annonce.date}</td>
           </tr>             
       )
@@ -202,7 +191,6 @@ class ListAnnonces extends Component {
               <th>Titre</th>
               <th>Description</th>
               <th>Utilisateur</th>
-              <th>Type d'Annonce</th>
               <th>Photo</th>
               <th>Date</th>
             </tr>
@@ -237,7 +225,6 @@ class ListServices extends Component {
             <td>{service.titre}</td>
             <td>{service.description}</td>
             <td>{service.typeService}</td>
-            <td>{service.photosService}</td>
           </tr>             
       )
     });
@@ -250,7 +237,6 @@ class ListServices extends Component {
               <th>Titre</th>
               <th>Description</th>
               <th>Type de Service</th>
-              <th>Photos</th>
             </tr>
           </thead>
           <tbody>
@@ -281,13 +267,11 @@ class ListEmplois extends Component {
         <tr key={emploi.id}>
             <th scope="row">{emploi.id}</th>
             <td>{emploi.lieu}</td>
-            <td>{emploi.duree}</td>
             <td>{emploi.titre}</td>
             <td>{emploi.description}</td>
             <td>{emploi.entreprise}</td>
-            <td>{emploi.descriptionProfilRecherche}</td>
+            <td>{emploi.competencesRequises}</td>
             <td>{emploi.typeContrat}</td>
-            <td>{emploi.service}</td>
           </tr>             
       )
     });
@@ -298,13 +282,11 @@ class ListEmplois extends Component {
             <tr>
               <th>#</th>
               <th>Lieu</th>
-              <th>Durée</th>
               <th>Titre</th>
               <th>Description du Poste</th>
               <th>Entreprise</th>
-              <th>Description du profil Recherché</th>
+              <th>Compétences Requises</th>
               <th>Type de Contrat</th>
-              <th>service</th>
             </tr>
           </thead>
           <tbody>
@@ -339,8 +321,6 @@ class ListLogements extends Component {
             <td>{logement.titre}</td>
             <td>{logement.description}</td>
             <td>{logement.typeLogement}</td>
-            <td>{logement.service}</td>
-            <td>{logement.photosLogement}</td>
           </tr>             
       )
     });
@@ -355,8 +335,6 @@ class ListLogements extends Component {
               <th>Titre</th>
               <th>Description</th>
               <th>Type de Logement</th>
-              <th>service</th>
-              <th>Photos du logement</th>
             </tr>
           </thead>
           <tbody>

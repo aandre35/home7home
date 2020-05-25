@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MyNavbar from '../components/navbar'
 import Banner from '../components/banner'
 import {Helmet} from "react-helmet";
+import CardAnnonce from '../components/cardAnnonce'
 import { Container, CardImg, CardBody, CardTitle, CardSubtitle, Row, Col, Card, Button } from 'reactstrap';
 import axios from 'axios'
 import draftImg from './318x180.svg'
@@ -28,16 +29,12 @@ class Home extends Component {
     let annonces = this.state.annonces.slice(0,size).map((annonce) => {
       const photo =`${API.urlPhotos}/${annonce.photosAnnonce[0].id}`
       return (
-        
         <Col md className="pb-4">
-          <Card key={annonce.id} className="card-exp">
-            <CardImg top width="100%" src={photo} alt="Card image cap" />
-            <CardBody>
-              <CardTitle>{annonce.titre}</CardTitle>
-              <CardSubtitle className="text-muted">{annonce.typeAnnonce}</CardSubtitle>
-              <Button>Button</Button>
-            </CardBody>
-          </Card>
+          <CardAnnonce
+            id={annonce.id}
+            titre={annonce.titre}
+            photo={photo}
+          />
         </Col>
         
       )

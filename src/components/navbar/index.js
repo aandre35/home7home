@@ -10,9 +10,9 @@ import {
   DropdownMenu,
   DropdownItem,
   NavbarText,
-  NavLink
+  NavItem,
 } from 'reactstrap';
-import {Link} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import FormInscription from '../formInscription';
@@ -54,17 +54,12 @@ class MyNavbar extends Component{
           <NavbarToggler onClick={this.setModal} />
           <Collapse isOpen={this.state.modal} navbar>
             <Nav className="mr-auto" navbar>
-              {/* 
               <NavItem>
-                <NavLink href="/logements">Logements</NavLink>
+                <NavLink to="/annonces">
+                  Annonces
+                </NavLink>                
               </NavItem>
-              <NavItem>
-                <NavLink href="/services">Services</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/emplois">Emplois</NavLink>
-              </NavItem>
-              */}
+              {/*
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Annonces
@@ -93,9 +88,7 @@ class MyNavbar extends Component{
                   </Link>
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <NavbarText>
-              Authentifié : { String(Auth.isAuthenticated)}{' '}
-              </NavbarText>
+              */}
             </Nav>    
             <Nav className="ml-auto" navbar>
               <SearchBar/>
@@ -114,11 +107,13 @@ class MyNavbar extends Component{
                         Mon compte
                       </DropdownItem>
                     </Link>
+                    {Auth.isAdmin &&
                     <Link to="/admin">
                       <DropdownItem>
                         Admin
                       </DropdownItem>
                     </Link>
+                    }
                     <DropdownItem divider />
                       <Logout/>
 
