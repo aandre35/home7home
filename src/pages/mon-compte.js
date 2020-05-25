@@ -48,13 +48,13 @@ class Compte extends Component {
     
     const photo = this.state.photo
     let annonces = this.state.annonces.map((annonce) => {
-      const photoAnnonce =`${API.urlPhotos}/${annonce.photosAnnonce[0].id}`
+      const photoAnnonce = annonce.photoAnnonce!== null ? `${API.urlPhotos}/${annonce.photosAnnonce[0].id}` : null
       return (
         <CadreAnnonce
           titre={annonce.titre}
           description={annonce.description}
           photo={photoAnnonce}
-          url="./"
+          id={annonce.id}
         />
       );
     })

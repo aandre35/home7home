@@ -27,6 +27,7 @@ class AnnonceLogement extends Component {
     mail: '',
     telephone: '',
     photos:[],
+    userPhoto:[],
     meuble: new Boolean()
   }
   componentWillMount() {
@@ -49,11 +50,14 @@ class AnnonceLogement extends Component {
     const urlUtilisateur = `${API.urlAnnonces}/${id}/${API.urlUtilisateur}`
     console.log(urlUtilisateur)
     axios.get(urlUtilisateur).then((response) => {
+      console.log(response.data)
       this.setState ({
         prenom : response.data.prenom,
         nom : response.data.nom,
         mail: response.data.mail,
-        telephone: response.data.telephone
+        telephone: response.data.telephone,
+        userPhoto: response.data.photoUtilisateur!==null ?`${API.urlPhotos}/${response.data.photoUtilisateur.id}` : undefined
+
       })
     });
     const urlType = `${API.urlLogements}/${id}${API.urlType}`
@@ -69,6 +73,7 @@ class AnnonceLogement extends Component {
     const titre = this.state.titre
     const description = this.state.description.sub(0,100)
     let i=0
+    console.log(this.state)
     let photos = this.state.photos.map((photo) => {
       i++
       return (
@@ -97,7 +102,8 @@ class AnnonceLogement extends Component {
                 <UncontrolledCarousel items={photos} />
                   <div className="p-4">
                     <h1>{this.state.titre}</h1>
-                    <h5><span className="text-muted">{this.state.loyer}{' €'}</span>{' / mois'}</h5>
+                    <h5><span className="text-muted">{this.state.loyer}{' €'}</span>{' / mois '}</h5>
+                    <h6>{'charges : '}<span className="text-muted">{this.state.charges}{' €'}</span>{' / mois'}</h6>
                   </div>               
                 </Card>               
               </div>
@@ -142,8 +148,8 @@ class AnnonceLogement extends Component {
                 <CardHeader>           
                   <h6>
                     <img 
-                      src={userImage} 
-                      style={{width: "35px"}}
+                      src={this.state.userPhoto ? this.state.userPhoto : userImage} 
+                      style={{width: "35px", borderRadius:'50%'}}
                       alt="user"
                     />
                       {' '}{this.state.prenom} {this.state.nom}

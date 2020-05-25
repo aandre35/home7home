@@ -128,6 +128,7 @@ class ListUtilisateurs extends Component {
             <td>{utilisateur.password}</td>
             <td><ul>{utilisateur.annonces.map((annonce => <li>{annonce.titre}</li> ))}</ul></td>
             <td>{photo}</td>
+            <td><DeleteUser id={utilisateur.id}/></td>
           </tr>             
       )
     });
@@ -143,6 +144,7 @@ class ListUtilisateurs extends Component {
               <th>Password</th>
               <th>Annonces</th>
               <th>Photo</th>
+              <th>Supprimer l'utilisateur</th>
             </tr>
           </thead>
           <tbody>
@@ -179,6 +181,7 @@ class ListAnnonces extends Component {
             <td>{annonce.utilisateur}</td>
             <td><ul>{annonce.photosAnnonce.map((photo => <li>{API.urlPhotos}/{photo.id}</li> ))}</ul></td>
             <td>{annonce.date}</td>
+            <td><DeleteAnnonce id={annonce.id}/></td>
           </tr>             
       )
     });
@@ -193,6 +196,7 @@ class ListAnnonces extends Component {
               <th>Utilisateur</th>
               <th>Photo</th>
               <th>Date</th>
+              <th>Supprimer l'annonce</th>
             </tr>
           </thead>
           <tbody>
@@ -225,6 +229,7 @@ class ListServices extends Component {
             <td>{service.titre}</td>
             <td>{service.description}</td>
             <td>{service.typeService}</td>
+            <td><DeleteAnnonce id={service.id}/></td>
           </tr>             
       )
     });
@@ -237,6 +242,7 @@ class ListServices extends Component {
               <th>Titre</th>
               <th>Description</th>
               <th>Type de Service</th>
+              <th>Supprimer l'annonce</th>
             </tr>
           </thead>
           <tbody>
@@ -272,6 +278,7 @@ class ListEmplois extends Component {
             <td>{emploi.entreprise}</td>
             <td>{emploi.competencesRequises}</td>
             <td>{emploi.typeContrat}</td>
+            <td><DeleteAnnonce id={emploi.id}/></td>
           </tr>             
       )
     });
@@ -287,6 +294,8 @@ class ListEmplois extends Component {
               <th>Entreprise</th>
               <th>Compétences Requises</th>
               <th>Type de Contrat</th>
+              <th>Supprimer l'annonce</th>
+
             </tr>
           </thead>
           <tbody>
@@ -321,6 +330,7 @@ class ListLogements extends Component {
             <td>{logement.titre}</td>
             <td>{logement.description}</td>
             <td>{logement.typeLogement}</td>
+            <td><DeleteAnnonce id={logement.id}/></td>
           </tr>             
       )
     });
@@ -335,6 +345,7 @@ class ListLogements extends Component {
               <th>Titre</th>
               <th>Description</th>
               <th>Type de Logement</th>
+              <th>Supprimer l'annonce</th>
             </tr>
           </thead>
           <tbody>
@@ -346,3 +357,40 @@ class ListLogements extends Component {
   }
 }
 export default Admin;
+
+class DeleteUser extends React.Component {
+  state = {
+    id: this.props.id
+  }
+
+  handleDelete = () => {
+    const url = `${API.urlUtilisateurs}/${this.state.id}`
+    console.log(url)
+    axios.delete(url)
+  }
+
+  render() {
+    return(
+      <Button onClick={this.handleDelete}>Supprimer</Button>
+    );
+  }
+}
+
+
+class DeleteAnnonce extends React.Component {
+  state = {
+    id: this.props.id
+  }
+
+  handleDelete = () => {
+    const url = `${API.urlAnnonces}/${this.state.id}`
+    console.log(url)
+    axios.delete(url)
+  }
+
+  render() {
+    return(
+      <Button onClick={this.handleDelete}>Supprimer</Button>
+    );
+  }
+}
